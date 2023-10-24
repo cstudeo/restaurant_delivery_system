@@ -1,5 +1,3 @@
 class Customer < User
-  def self.roles
-    %w(admin carrier customer)
-  end
+  has_many :orders
 end
