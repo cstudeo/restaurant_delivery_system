@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_10_24_133304) do
+ActiveRecord::Schema[7.0].define(version: 2023_10_24_174029) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -89,7 +89,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_24_133304) do
     t.string "phone_number", default: "", null: false
     t.boolean "is_available", default: false
     t.integer "daily_orders_count"
-    t.string "role"
+    t.string "type"
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
