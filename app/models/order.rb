@@ -1,6 +1,12 @@
 class Order < ApplicationRecord
   belongs_to :restaurant
+  has_many :order_items
 
   belongs_to :customer, class_name: 'User', foreign_key: 'customer_id'
   belongs_to :carrier, class_name: 'User', foreign_key: 'carrier_id'
+
+
+  def self.ransackable_attributes(auth_object = nil)
+    ["carrier_id", "created_at", "customer_id", "id", "picked_up_at", "restaurant_id", "status", "total_amount", "updated_at"]
+  end
 end
