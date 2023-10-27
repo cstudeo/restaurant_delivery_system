@@ -1,6 +1,14 @@
 
-<div class="">
-  <h1 class="text-3xl font-bold underline">
-      Hello world!
-  </h1>
+<div class="flex items-center justify-center space-x-6">
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 mt-12">
+    <% @restaurants.each do |restaurant| %>
+      <div class="bg-white border border-gray-100 transition transform duration-700 hover:shadow-xl hover:scale-105 p-4 rounded-lg relative">
+        <%= image_tag('default_restaurant.gif', alt: restaurant.name, class: "w-64 mx-auto transform transition duration-300 hover:scale-105") %>
+        <div class="flex flex-col items-center my-3 space-y-2">
+          <h1 class="text-gray-900 poppins text-lg"><%= restaurant.name %></h1>
+          <%= link_to "Order Now", restaurant_food_items_path(restaurant), class: "bg-primary text-white px-8 py-2 focus:outline-none poppins rounded-full mt-24 transform transition duration-300 hover:scale-105" %>
+        </div>
+      </div>
+    <% end %>
+  </div>
 </div>

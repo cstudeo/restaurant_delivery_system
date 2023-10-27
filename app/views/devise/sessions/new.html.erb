@@ -55,7 +55,7 @@
                 </div>
               <% if devise_mapping.rememberable? %>
                   <div class="field">
-                    <%= f.check_box :remember_me %>
+                    <%= f.check_box :remember_me, class: 'border-gray-300 rounded h-5 w-5' %>
                     <%= f.label :remember_me, class: 'mt-6 text-xs text-gray-600 text-center' %>
                   </div>
               <% end %>
