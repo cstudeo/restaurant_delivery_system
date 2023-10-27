@@ -8,6 +8,10 @@ Rails.application.routes.draw do
   }
 
   root 'restaurants#index'
+  # resources :food_items
+  resources :restaurants, only: [:index] do
+    resources :food_items, only: [:index]
+  end
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Defines the root path route ("/")
