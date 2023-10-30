@@ -1,0 +1,15 @@
+development: 
+  cloud_name: "dolvd7ihh"
+  api_key: "437216924336454"
+  api_secret: "jOC-iKiA246RUAh7Ih5bmkhMJy0"
+  static_file_support: false
+  enhance_image_tag: true
+  secure: true
+
+production:
+  cloud_name: "dolvd7ihh"
+  api_key: "437216924336454"
+  api_secret: "jOC-iKiA246RUAh7Ih5bmkhMJy0"
+  static_file_support: false
+  enhance_image_tag: true
+  secure: true
