@@ -6,6 +6,9 @@ ruby "3.0.6"
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "sassc-rails"
 
+# cloud storage for images
+gem 'cloudinary'
+
 gem "rails", "~> 7.0.8"
 
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
