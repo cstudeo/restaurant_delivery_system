@@ -1,0 +1,9 @@
+<% if !verification_details_present? %>
+  <%= render 'verification_form' %>
+<% elsif !current_user.is_verified %>
+  <%= render 'stepers' %>
+<% else %>
+  <h1>your dashboard</h1>
+<% end %>
+
+<div data-controller="carrier"></div>

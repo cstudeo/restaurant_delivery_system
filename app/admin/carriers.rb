@@ -13,6 +13,7 @@ ActiveAdmin.register Carrier do
     column :phone_number
     column :is_available
     column :daily_orders_count
+    column :account_number
     actions
   end
 
@@ -21,6 +22,30 @@ ActiveAdmin.register Carrier do
   filter :phone_number
   filter :email
   filter :daily_orders_count
+
+
+  show do
+    attributes_table do
+      row :email
+      row :first_name
+      row :last_name
+      row :phone_number
+      row :is_available
+      row :created_at
+      row :is_verified
+      row :account_number do |user|
+        user.verification_detail.account_number
+      end
+
+      row :personal_picture do |user|
+        image_tag user.verification_detail.personal_picture.url, size: "200x200"
+      end
+      row :student_card do |user|
+        image_tag user.verification_detail.card_picture.url, size: "200x200"
+      end
+    end
+    active_admin_comments
+  end
 
   # See permitted parameters documentation:
   # https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters

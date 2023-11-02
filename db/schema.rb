@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_10_27_104621) do
+ActiveRecord::Schema[7.0].define(version: 2023_11_01_182343) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -151,8 +151,17 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_27_104621) do
     t.datetime "remember_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "is_verified", default: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  end
+
+  create_table "verification_details", force: :cascade do |t|
+    t.string "account_number"
+    t.bigint "carrier_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["carrier_id"], name: "index_verification_details_on_carrier_id"
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
@@ -167,4 +176,5 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_27_104621) do
   add_foreign_key "orders", "restaurants"
   add_foreign_key "orders", "users", column: "carrier_id"
   add_foreign_key "orders", "users", column: "customer_id"
+  add_foreign_key "verification_details", "users", column: "carrier_id"
 end
