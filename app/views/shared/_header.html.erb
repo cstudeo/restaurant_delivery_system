@@ -1,0 +1,26 @@
+<header class="fixed z-50 top-0 left-0 w-full" id="navbar">
+    <nav class="flex items-center max-w-screen-xl mx-auto px-6 py-3">
+        <!-- Left -->
+        <div class="flex flex-grow">
+            <img class="w-36 cursor-pointer" src="https://makeitsimplett.com/wp-content/uploads/2022/06/logo-update-03.png" alt="logo">
+        </div>
+        <!-- Right -->
+        <div class="flex items-center justify-end space-x-6">
+            <button class="poppins" onclick="window.location.href='/signin'">Sign In</button>
+            <button class="bg-primary px-6 py-3 text-white poppins rounded-full ring-red-300 focus:outline-none focus:ring-4 transform transition duration-700 hover:scale-105" onclick="window.location.href='/signup'">Sign Up</button>
+            <button id="cart-drawer-btn" class='poppins focus:outline-none focus:border-none' type="button" data-drawer-target="drawer-example" data-drawer-show="drawer-example" aria-controls="drawer-example">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M10 19.5c0 .829-.672 1.5-1.5 1.5s-1.5-.671-1.5-1.5c0-.828.672-1.5 1.5-1.5s1.5.672 1.5 1.5zm3.5-1.5c-.828 0-1.5.671-1.5 1.5s.672 1.5 1.5 1.5 1.5-.671 1.5-1.5c0-.828-.672-1.5-1.5-1.5zm1.336-5l1.977-7h-16.813l2.938 7h11.898zm4.969-10l-3.432 12h-12.597l.839 2h13.239l3.474-12h1.929l.743-2h-4.195z"/></svg>
+            </button>
+            <span style='margin-left: 2px;' class='bg-primary rounded-full text-white px-2 py-1 text-sm' id='cart-count'><%= cart_count %></span>
+        </div>
+    </nav>
+</header>
+<section id='header-section' class="display-size header-banner w-full bg-yellow-50">
+    <div class="flex flex-col items-center justify-center h-full">
+    <h1 class="text-center text-3xl md:text-4xl lg:text-5xl poppins font-semibold text-gray-700">Best food waiting for your belly</h1>
+    <div class="rounded-full p-1 box-border mt-8 bg-white overflow-hidden ring-red-300 focus:ring-4 w-96 flex items-center">
+        <input type="text" class="border-none rounded-full px-4 w-full bg-transparent" placeholder="Search here .......">
+        <button class="text-sm bg-primary py-3 px-6 rounded-full text-white poppins ring-red-300 focus:ring-4 transition duration-300 hover:scale-105 transform">Search</button>
+    </div>
+    </div>
+</section>

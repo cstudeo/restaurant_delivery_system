@@ -19,6 +19,15 @@
       .yellow-color {
         background-color: #febd02;
       }
+      header {
+        display: none;
+      }
+      footer {
+        display: none;
+      }
+      #header-section {
+        display: none;
+      }
     </style>
     <script
       src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.js"
@@ -28,14 +37,13 @@
 
   <body class="min-h-screen bg-gray-100 text-gray-900 flex justify-center">
     <div
-      class="mt-0 max-w-screen-xl m-0 sm:m-20 bg-white shadow sm:rounded-lg flex justify-center flex-1"
+      class="max-w-screen-xl m-0 sm:m-20 bg-white shadow sm:rounded-lg flex justify-center flex-1"
     >
       <div class="lg:w-1/2 xl:w-5/12 p-6 sm:p-12">
         <div>
-          <img
-            src="https://makeitsimplett.com/wp-content/uploads/2022/06/logo-update-03.png"
-            class="w-32 mx-auto"
-          />
+          <%= image_tag('app_logo.png', 
+          alt: 'LOGO', 
+          class: "w-32 mx-auto") %>
         </div>
         <div class="flex flex-col items-center">
           <h1 class="text-2xl xl:text-3xl font-extrabold">
@@ -96,9 +104,8 @@
         </div>
       </div>
       <div class="flex-1 bg-indigo-100 text-center hidden lg:flex">
-      <img
-        src="https://cdn.dribbble.com/users/287797/screenshots/2542410/media/92f73c30e54e684f4582adc4a1beccec.gif"
-      />
+      <%= image_tag('signup_gif.gif', 
+          alt: 'LOGO') %>
       </div>
     </div>
   </body>
