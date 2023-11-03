@@ -3,4 +3,39 @@ module ApplicationHelper
     user = current_user
     "#{user.first_name} #{user.last_name}"
   end
+
+	def current_cart
+		Cart.find_or_create_by(user: current_user, restaurant: Restaurant.find_by_id(session[:restaurant_id]))
+	end
+
+	def current_restaurant
+		Restaurant.find_by_id(session[:restaurant_id])
+	end
+
+	def cart_count
+		user_signed_in? ? current_cart.order_items.count : session[:order_details]&.length ||=0
+	end
+
+	def total_amount_for_session
+    total = 0.to_d
+
+    if session[:order_details]
+        session[:order_details].each do |item|
+            food_item = FoodItem.find_by(id: item["food_item_id"])
+            
+            if food_item
+            unit_price = food_item.price.to_d || 0.to_d
+            quantity = item["quantity"].to_i || 0
+            
+            total += (unit_price * quantity)
+            end
+        end
+    end
+    
+    total
+	end
+
+	def cart_total
+		user_signed_in? ? current_cart.total_amount : total_amount_for_session
+	end
 end

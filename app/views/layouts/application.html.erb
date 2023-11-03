@@ -13,6 +13,7 @@
       href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css"
       rel="stylesheet"
     />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.0.0/flowbite.min.css" rel="stylesheet" />
     <link
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap"
       rel="stylesheet"
@@ -45,6 +46,46 @@
       .bg-footer {
         background-color: #4a5568;
       }
+      * {
+        box-sizing: border-box;
+      }
+
+      .input-number, .input-number-decrement, .input-number-increment {
+        border: 1px solid #ccc;
+        height: 40px;
+        user-select: none;
+      }
+
+      .input-number {
+        width: 80px;
+        text-align: center;
+        outline: none;
+      }
+
+      .input-number-decrement, .input-number-increment {
+        display: inline-block;
+        width: 30px;
+        line-height: 38px;
+        background: #f1f1f1;
+        color: #444;
+        text-align: center;
+        font-weight: bold;
+        cursor: pointer;
+      }
+
+      .input-number-decrement:active {
+        background: #ddd;
+      }
+
+      .input-number-decrement {
+        border-right: none;
+        border-radius: 4px 0 0 4px;
+      }
+
+      .input-number-increment {
+        border-left: none;
+        border-radius: 0 4px 4px 0;
+      }
     </style>
     <script
       src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.js"
@@ -53,75 +94,17 @@
   </head>
 
   <body>
-    <header class="fixed z-50 top-0 left-0 w-full" id="navbar">
-        <nav class="flex items-center max-w-screen-xl mx-auto px-6 py-3">
-            <!-- Left -->
-            <div class="flex flex-grow">
-                <img class="w-36 cursor-pointer" src="https://makeitsimplett.com/wp-content/uploads/2022/06/logo-update-03.png" alt="logo">
-            </div>
-            <!-- Right -->
-            <div class="flex items-center justify-end space-x-6">
-                <button class="poppins" onclick="window.location.href='/signin'">Sign In</button>
-                <button class="bg-primary px-6 py-3 text-white poppins rounded-full ring-red-300 focus:outline-none focus:ring-4 transform transition duration-700 hover:scale-105" onclick="window.location.href='/signup'">Sign Up</button>
-            </div>
-        </nav>
-    </header>
-    <section class="display-size header-banner w-full bg-yellow-50">
-      <div class="flex flex-col items-center justify-center h-full">
-        <h1 class="text-center text-3xl md:text-4xl lg:text-5xl poppins font-semibold text-gray-700">Best food waiting for your belly</h1>
-        <div class="rounded-full p-1 box-border mt-8 bg-white overflow-hidden ring-red-300 focus:ring-4 w-96 flex items-center">
-          <input type="text" class="border-none rounded-full px-4 w-full bg-transparent" placeholder="Search here .......">
-          <button class="text-sm bg-primary py-3 px-6 rounded-full text-white poppins ring-red-300 focus:ring-4 transition duration-300 hover:scale-105 transform">Search</button>
-        </div>
-      </div>
-    </section>
+    <%= render 'shared/header' %> 
+
+    <%= render 'shared/cart_drawer' %>
     
     <%= yield %>
 
-    <footer class="mt-5 bg-footer px-6 py-12">
-        <div class="max-w-screen-xl mx-auto px-6">
-            <div class="flex pb-8">
-                <div class="flex flex-grow">
-                    <div>
-                        <img class="w-52" src="https://makeitsimplett.com/wp-content/uploads/2022/06/logo-update-03.png" alt="logo">
-                    </div>
-                </div>
-                <div class="flex space-x-12">
-                    <div class="flex flex-col space-y-2">
-                        <span class="text-white poppins">About Online Food</span>
-                        <span class="text-white poppins">Read our blog</span>
-                        <span class="text-white poppins">Sign up to deliver</span>
-                        <span class="text-white poppins">Add your restaurant</span>
-                    </div>
-                    <div class="flex flex-col space-y-2">
-                        <span class="text-white poppins">Get Help</span>
-                        <span class="text-white poppins">Ask any question</span>
-                        <span class="text-white poppins">Order Now</span>
-                        <span class="text-white poppins">Contact</span>
-                    </div>
-                    <div class="flex flex-col space-y-2">
-                        <span class="text-white poppins">Facebook</span>
-                        <span class="text-white poppins">Instagram</span>
-                        <span class="text-white poppins">Twitter</span>
-                        <span class="text-white poppins">Youtube</span>
-                    </div>
-                </div>
-            </div>
-            <div class="flex items-center pt-8">
-                <div class="flex flex-grow">
-                    <span class="poppins text-gray-500">Developed by X-Y-Z</span>
-                </div>
-                <div class="flex justify-end items-center space-x-6">
-                    <span class="poppins text-white cursor-pointer">Privacy Policy</span>
-                    <span class="poppins text-white cursor-pointer">Terms of Use</span>
-                    <span class="poppins text-white cursor-pointer">Pricing</span>
-                </div>
-            </div>
-        </div>
-    </footer>
+    <%= render 'shared/footer' %>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.0.0/flowbite.min.js"></script>
     <script>
-        const navbar = document.getElementById('navbar');
+        var navbar = document.getElementById('navbar');
 
         // Function to add or remove the transition class
         function toggleTransition() {
@@ -133,7 +116,6 @@
                 navbar.classList.remove('bg-white', 'shadow-md');
             }
         }
-
         // Attach the scroll event listener
         window.addEventListener('scroll', toggleTransition);
     </script>
