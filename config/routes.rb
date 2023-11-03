@@ -8,7 +8,11 @@ Rails.application.routes.draw do
   }
 
   root 'restaurants#index'
-  # resources :food_items
+  resources :carriers, only: [:index, :edit, :update] do
+    post :update_availibilty, on: :collection
+    post :verification_details, on: :collection
+  end
+
   resources :restaurants, only: [:index] do
     resources :food_items, only: [:index]
   end
