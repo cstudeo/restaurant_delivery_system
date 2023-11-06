@@ -5,7 +5,7 @@
         <%= image_tag('default_restaurant.gif', alt: restaurant.name, class: "w-64 mx-auto transform transition duration-300 hover:scale-105") %>
         <div class="flex flex-col items-center my-3 space-y-2">
           <h1 class="text-gray-900 poppins text-lg"><%= restaurant.name %></h1>
-          <%= button_to restaurant_food_items_path(restaurant), method: :get, class: "bg-primary text-white px-8 py-2 focus:outline-none poppins rounded-full transform transition duration-300 hover:scale-105" do %>
+          <%= link_to restaurant_food_items_path(restaurant), method: :get, class: "bg-primary text-white px-8 py-2 focus:outline-none poppins rounded-full transform transition duration-300 hover:scale-105" do %>
             Order Now
           <% end %>
         </div>
