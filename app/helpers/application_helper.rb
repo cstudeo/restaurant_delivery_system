@@ -12,9 +12,9 @@ module ApplicationHelper
 		Restaurant.find_by_id(session[:restaurant_id])
 	end
 
-	def cart_count
-		user_signed_in? ? current_cart.order_items.count : session[:order_details]&.length ||=0
-	end
+    def cart_count
+        user_signed_in? ? current_cart.order_items.count : (session[:order_details] || []).length
+    end
 
 	def total_amount_for_session
     total = 0.to_d
@@ -34,6 +34,17 @@ module ApplicationHelper
     
     total
 	end
+
+    def eligible_carriers
+        current_date = Date.current
+        eligible_carriers = Carrier.joins(:orders)
+                                 .where(orders: { status: [nil, Order.statuses[:completed]] })
+                                 .where('DATE(orders.created_at) = ?', current_date)
+                                 .group('users.id')
+                                 .having('COUNT(orders.id) < 10')
+
+        eligible_carriers.order('RANDOM()').first
+    end
 
 	def cart_total
 		user_signed_in? ? current_cart.total_amount : total_amount_for_session

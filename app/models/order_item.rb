@@ -1,5 +1,5 @@
 class OrderItem < ApplicationRecord
-  belongs_to :cart
+  belongs_to :cart, optional: true
   belongs_to :food_item
   belongs_to :order, optional: true
   before_save :set_unit_price

@@ -6,7 +6,8 @@ Rails.application.routes.draw do
   devise_for :users, controllers: {
     sessions: 'users/sessions'
   }
-  
+
+  resources :orders, only: [:create, :show]
   root 'restaurants#index'
   resources :carriers, only: [:index, :edit, :update] do
     post :update_availibilty, on: :collection

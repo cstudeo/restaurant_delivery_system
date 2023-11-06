@@ -118,6 +118,11 @@
         }
         // Attach the scroll event listener
         window.addEventListener('scroll', toggleTransition);
+
+        function closeFlashMessages() {
+          const flashMessages = document.getElementById('flash-messages');
+          flashMessages.style.display = 'none';
+        }
     </script>
   </body>
 </html>
