@@ -1,15 +1,69 @@
-/*
- * This is a manifest file that'll be compiled into application.css, which will include all the files
- * listed below.
- *
- * Any CSS (and SCSS, if configured) file within this directory, lib/assets/stylesheets, or any plugin's
- * vendor/assets/stylesheets directory can be referenced here using a relative path.
- *
- * You're free to add application-wide styles to this file and they'll appear at the bottom of the
- * compiled file so the styles you add here take precedence over styles defined in any other CSS
- * files in this directory. Styles in this file should be added after the last require_* statement.
- * It is generally better to create a new file per style scope.
- *
- *= require_tree .
- *= require_self
- */
+
+.header-banner {
+    background-image: url('bannerbackground.png');
+    background-repeat: no-repeat;
+    background-position: 50%;
+    background-size: cover
+}
+.poppins {
+  font-family: 'Poppins', sans-serif;
+}
+.bg-primary {
+  background: #f91944;
+}
+.bg-primary-dark {
+  background: #ce193c;
+}
+.text-primary {
+  color: #f91944;
+}
+.display-size {
+  height: 38rem;
+}
+.transition-bg {
+      transition: background-color 0.5s;
+}
+.bg-footer {
+  background-color: #4a5568;
+}
+* {
+  box-sizing: border-box;
+}
+
+.input-number, .input-number-decrement, .input-number-increment {
+  border: 1px solid #ccc;
+  height: 40px;
+  user-select: none;
+}
+
+.input-number {
+  width: 80px;
+  text-align: center;
+  outline: none;
+}
+
+.input-number-decrement, .input-number-increment {
+  display: inline-block;
+  width: 30px;
+  line-height: 38px;
+  background: #f1f1f1;
+  color: #444;
+  text-align: center;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.input-number-decrement:active {
+  background: #ddd;
+}
+
+.input-number-decrement {
+  border-right: none;
+  border-radius: 4px 0 0 4px;
+}
+
+.input-number-increment {
+  border-left: none;
+  border-radius: 0 4px 4px 0;
+}
+
