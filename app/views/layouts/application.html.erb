@@ -6,6 +6,7 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
+    <%= stylesheet_link_tag "application.css", "data-turbo-track": "reload" %>
 
     <%= javascript_importmap_tags %>
     <!--- <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %> --->
@@ -18,79 +19,12 @@
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap"
       rel="stylesheet"
     />
-    <style>
-      .header-banner {
-          background-image: url(<%= asset_path 'bannerbackground.png' %>);;
-          background-repeat: no-repeat;
-          background-position: 50%;
-          background-size: cover
-      }
-      .poppins {
-        font-family: 'Poppins', sans-serif;
-      }
-      .bg-primary {
-        background: #f91944;
-      }
-      .bg-primary-dark {
-        background: #ce193c;
-      }
-      .text-primary {
-        color: #f91944;
-      }
-      .display-size {
-        height: 38rem;
-      }
-      .transition-bg {
-            transition: background-color 0.5s;
-      }
-      .bg-footer {
-        background-color: #4a5568;
-      }
-      * {
-        box-sizing: border-box;
-      }
 
-      .input-number, .input-number-decrement, .input-number-increment {
-        border: 1px solid #ccc;
-        height: 40px;
-        user-select: none;
-      }
-
-      .input-number {
-        width: 80px;
-        text-align: center;
-        outline: none;
-      }
-
-      .input-number-decrement, .input-number-increment {
-        display: inline-block;
-        width: 30px;
-        line-height: 38px;
-        background: #f1f1f1;
-        color: #444;
-        text-align: center;
-        font-weight: bold;
-        cursor: pointer;
-      }
-
-      .input-number-decrement:active {
-        background: #ddd;
-      }
-
-      .input-number-decrement {
-        border-right: none;
-        border-radius: 4px 0 0 4px;
-      }
-
-      .input-number-increment {
-        border-left: none;
-        border-radius: 0 4px 4px 0;
-      }
-    </style>
     <script
       src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.js"
       defer
     ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.0.0/flowbite.min.js"></script>
   </head>
 
   <body>
@@ -102,7 +36,6 @@
 
     <%= render 'shared/footer' %>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.0.0/flowbite.min.js"></script>
     <script>
         var navbar = document.getElementById('navbar');
 

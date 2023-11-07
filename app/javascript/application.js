@@ -21,3 +21,23 @@ function initializeDrawer() {
       drawer.style.transform = 'translateX(-100%)'; // Hide the drawer
   });
 }
+
+var navbar = document.getElementById('navbar');
+
+  // Function to add or remove the transition class
+  function toggleTransition() {
+      if (window.scrollY >= 50) {
+          navbar.classList.add('bg-white', 'shadow-md', 'transition-bg');
+          navbar.classList.remove('bg-transparent');
+      } else {
+          navbar.classList.add('bg-transparent', 'transition-bg');
+          navbar.classList.remove('bg-white', 'shadow-md');
+      }
+  }
+  // Attach the scroll event listener
+  window.addEventListener('scroll', toggleTransition);
+
+  function closeFlashMessages() {
+    const flashMessages = document.getElementById('flash-messages');
+    flashMessages.style.display = 'none';
+  }
