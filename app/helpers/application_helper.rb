@@ -37,11 +37,13 @@ module ApplicationHelper
 
     def eligible_carriers
         current_date = Date.current
-        eligible_carriers = Carrier.joins(:orders)
-                                 .where(orders: { status: [nil, Order.statuses[:completed]] })
-                                 .where('DATE(orders.created_at) = ?', current_date)
-                                 .group('users.id')
-                                 .having('COUNT(orders.id) < 10')
+        carriers = Carrier.is_available
+
+        eligible_carriers = carriers.includes(:orders)
+                                    .left_outer_joins(:orders)
+                                    .where('DATE(orders.created_at) = ? OR orders.id IS NULL', current_date)
+                                    .group('users.id')
+                                    .having('COUNT(orders.id) < 10')
 
         eligible_carriers.order('RANDOM()').first
     end
