@@ -1,5 +1,5 @@
 
-<div class="container mx-auto p-4">
+<div class="container mx-auto p-4" data-controller="order">
     <div class="bg-white p-6 rounded-lg shadow-md">
         <h1 class="text-3xl font-semibold mb-4">Order Details</h1>
 
@@ -49,7 +49,8 @@
         <!-- Total Amount -->
         <div class="mt-6">
             <p class="text-xl font-semibold">Total Amount: $<%= @order.total_amount %></p>
+
+            <%= link_to "Pay now", '#', data: { action: "click->order#payWithPaystack" }, style: 'width: -webkit-fill-available;', class: 'bg-red-500 px-6 py-3 text-white poppins rounded-full ring-red-300 focus:outline-none focus:ring-4 transform transition duration-700 hover:scale-105' %>
         </div>
     </div>
 </div>
-
