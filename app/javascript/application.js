@@ -11,6 +11,10 @@ function initializeDrawer() {
   const drawerButton = document.querySelector('[data-drawer-show="drawer-example"]');
   const drawer = document.querySelector('#drawer-example');
   const closeButton = document.querySelector('[data-drawer-hide="drawer-example"]');
+  const modalButton = document.querySelector('[data-modal-target="default-modal"]');
+  const modal = document.querySelector('#default-modal');
+  const modalClose = document.querySelector('[data-modal-hide="default-modal"]');
+
 
   // This is just an example. Your actual logic to show/hide the drawer might be different.
   drawerButton.addEventListener('click', () => {
@@ -20,6 +24,14 @@ function initializeDrawer() {
   closeButton.addEventListener('click', () => {
       drawer.style.transform = 'translateX(-100%)'; // Hide the drawer
   });
+
+  modalButton.addEventListener("click", () => {
+    modal.classList.remove('hidden');   
+  })
+
+  modalClose.addEventListener("click", () => {
+    modal.classList.add('hidden');
+  })
 }
 
 var navbar = document.getElementById('navbar');
