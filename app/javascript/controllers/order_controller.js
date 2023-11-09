@@ -64,7 +64,7 @@ export default class extends Controller {
   }
 
 
-  payWithPaystack(order_id) { 
+  async payWithPaystack(order_id) { 
     const paystack = new PaystackPop();
 
     paystack.newTransaction({
@@ -103,19 +103,32 @@ export default class extends Controller {
     });
   }
 
-  updateOrderStatus(order_id) {
-    const csrfToken = document.querySelector("meta[name='csrf-token']").content;
-    const url = `/orders/${order_id}`;
+  async updateOrderStatus(order_id) {
+    try {
+        const csrfToken = document.querySelector("meta[name='csrf-token']").content;
+        const url = `/orders/${order_id}`;
 
-    fetch(url, {
-      method: "PATCH",
-      headers: {
-        "X-CSRF-Token": csrfToken,
-        "Accept": "application/html",
-        "Content-Type": "application/html",
-      },
-    });
+        const response = await fetch(url, {
+            method: "PATCH",
+            headers: {
+                "X-CSRF-Token": csrfToken,
+                "Accept": "application/json",
+                "Content-Type": "application/json",
+            },
+        });
+
+        if (!response.ok) {
+            throw new Error(`Failed to update order status: ${response.status}`);
+        }
+
+        const data = await response.json();
+
+        window.location.href = `/orders/${order_id}`;
+    } catch (error) {
+        console.error(error);
+    }
   }
+
 
   deleteOrder(order_id) {
     const csrfToken = document.querySelector("meta[name='csrf-token']").content;
@@ -125,8 +138,8 @@ export default class extends Controller {
       method: "DELETE",
       headers: {
         "X-CSRF-Token": csrfToken,
-        "Accept": "application/html",
-        "Content-Type": "application/html",
+        "Accept": "text/html",
+        "Content-Type": "text/html",
       },
     });
   }

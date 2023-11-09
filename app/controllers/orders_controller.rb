@@ -39,13 +39,28 @@ class OrdersController < ApplicationController
 
     def update
         @order = Order.find(params[:id])
-        if @order.update(status: 1)
+      
+        respond_to do |format|
+          if @order.update(status: 1)
             # OrderMailer.mail_customer(@order).deliver_now
             # OrderMailer.mail_carrier(@order).deliver_now
-            redirect_to order_path(@order)
-        else
-            flash[:alert] = "Unable to process the order. Please try again later."
-            redirect_to root_path
+      
+            format.html { redirect_to order_path(@order) }
+            format.json {
+              render json: {
+                message: 'Order status updated successfully',
+                order_id: @order.id
+              }
+            }
+          else
+            format.html {
+              flash[:alert] = 'Unable to process the order. Please try again later.'
+              redirect_to root_path
+            }
+            format.json {
+              render json: { error: 'Unable to process the order. Please try again later.' }, status: :unprocessable_entity
+            }
+          end
         end
     end
 
