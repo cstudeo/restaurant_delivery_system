@@ -7,7 +7,7 @@ Rails.application.routes.draw do
     sessions: 'users/sessions'
   }
 
-  resources :orders, only: [:create, :show]
+  resources :orders, except: [:new, :edit]
   root 'restaurants#index'
   resources :carriers, only: [:index, :edit, :update] do
     post :update_availibilty, on: :collection

@@ -13,3 +13,6 @@ application.register("cart", CartController)
 import HelloController from "./hello_controller"
 application.register("hello", HelloController)
 
+import OrderController from "./order_controller"
+application.register("order", OrderController)
+

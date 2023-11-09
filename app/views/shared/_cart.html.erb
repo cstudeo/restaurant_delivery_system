@@ -33,8 +33,10 @@
                 </div> 
                     
                 <hr>
-            <%end%>
+            <% end %>
         <% end %>
     <% end %>
 <% end %>
 <h3 id='grand-total' class='font-semibold'>Total: $<%= number_with_precision(cart_total, precision: 2) %></h3>
+
+<%= render 'shared/place_order_button' %>

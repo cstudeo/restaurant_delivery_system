@@ -24,7 +24,7 @@
                 <%= form_with model: @order_item, remote: true, data: { type: :json } do |f| %>
                   <%= f.hidden_field :food_item_id, value: food_item.id %>
                   <%= f.hidden_field :quantity, value: 1 %>
-                  <%= f.submit "Add To Cart", class: "bg-red-500 text-white px-3 py-2 focus:outline-none poppins rounded-full ml-4 focus:outline-none focus:ring-4 transform transition duration-700 hover:scale-105" %>
+                  <%= f.submit "Add To Cart", class: "bg-red-600 text-white px-3 py-2 focus:outline-none poppins rounded-full ml-4 focus:outline-none focus:ring-4 transform transition duration-700 hover:scale-105" %>
                 <% end %>
               </div>
             </div>

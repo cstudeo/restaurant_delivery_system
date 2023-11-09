@@ -1,0 +1,25 @@
+Order Information:
+-----------------
+Order ID: <%= @order.id %>
+Date: <%= l(@order.created_at.in_time_zone, format: :long) %>
+
+Carrier Information:
+-------------------
+Name: <%= @order.carrier.first_name %> <%= @order.carrier.last_name %>
+Email: <%= @order.carrier.email %>
+Phone Number: <%= @order.carrier.phone_number %>
+
+Restaurant Information:
+-----------------------
+Name: <%= @order.restaurant.name %>
+
+Order Items:
+------------
+<% @order.order_items.each do |order_item| %>
+  <%= order_item.food_item.name %>
+    - Quantity: <%= order_item.quantity %>
+    - Price per item: $<%= order_item.food_item.price %>
+    - Total: $<%= order_item.total %>
+<% end %>
+
+Total Amount: $<%= @order.total_amount %>

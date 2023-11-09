@@ -1,0 +1,48 @@
+<!-- Main modal -->
+<div id="default-modal" tabindex="-1" aria-hidden="true" class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full fixed top-0 left-0 right-0 z-50 w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full justify-center items-center flex">
+  <div class="relative w-full max-w-2xl max-h-full">
+    <!-- Modal content -->
+    <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+        <button type="button" class="float-right text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="default-modal">
+                    <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                    </svg>
+                    <span class="sr-only">Close modal</span>
+        </button>
+      <div class="bg-white p-6 rounded-lg shadow-md" data-controller="order">
+        <h1 class="text-3xl font-semibold mb-4">Order Details</h1>
+        <div class="mb-6">
+            <h3 class="text-xl font-semibold mb-2">Restaurant Name: <%= current_cart.restaurant&.name %></h3>
+        </div>
+
+        <div>
+            <h3 class="text-xl font-semibold mb-2">Order Items</h3>
+            <ul>
+                <% current_cart.order_items.each do |order_item| %>
+                    <li class="flex items-center justify-between border-b border-gray-300 py-2">
+                        <div class="flex items-center">
+                            <%= cl_image_tag(order_item.food_item.picture.key, alt: order_item.food_item.name, class: "w-10 h-10 object-cover mr-2") %>
+                            <div>
+                                <h3><%= order_item.food_item.name %></h3>
+                                <p><%= order_item.quantity %> x $<%= order_item.food_item.price %></p>
+                            </div>
+                        </div>
+                        <p>$<%= order_item.total %></p>
+                    </li>
+                <% end %>
+            </ul>
+        </div>
+
+        <!-- Total Amount -->
+        <div class="mt-6">
+            <h3 class="text-xl font-semibold">Total Amount: $<%= number_with_precision(cart_total, precision: 2) %></h3>
+
+        </div>
+        <div class="grid text-center ml-3 m-5">  
+            <%= link_to "Pay now", '#', data: { action: "click->order#createAndPay" }, style: 'width: -webkit-fill-available;', class: 'bg-red-600 px-6 py-3 text-white poppins rounded-full ring-red-300 focus:outline-none focus:ring-4 transform transition duration-700 hover:scale-105' %>       
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
