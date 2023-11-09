@@ -3,7 +3,7 @@ class Carrier < User
   has_one :verification_detail
   # has_many_attached :pictures
 
-  scope :is_available, -> { where(is_available: true) }
+  scope :is_available, -> { where(is_available: true, is_verified: true) }
 
 
   def self.ransackable_attributes(auth_object = nil)

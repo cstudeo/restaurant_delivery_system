@@ -17,7 +17,8 @@ class OrderItemsController < ApplicationController
       session[:order_details] ||= []
       new_data = {
         quantity: params[:order_item][:quantity].to_i,
-        food_item_id: params[:order_item][:food_item_id].to_i
+        food_item_id: params[:order_item][:food_item_id].to_i,
+        restaurant_id: @restaurant.id
       }
       
       matching_item = session[:order_details].find do |item|

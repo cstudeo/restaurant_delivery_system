@@ -7,7 +7,6 @@ export default class extends Controller {
   }
 
   session_decrement(e) {
-    console.log("session decrement")
     const id = parseInt(e.target.dataset.id);
     const input = document.querySelector(`#food-quantity-${id}`);
     const quantity = parseInt(input.innerHTML);
@@ -22,7 +21,6 @@ export default class extends Controller {
   }
 
   session_increment(e) {
-    console.log("session increment")
     const id = parseInt(e.target.dataset.id);
     const input = document.querySelector(`#food-quantity-${id}`);
     const quantity = parseInt(input.innerHTML);

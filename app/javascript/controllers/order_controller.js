@@ -3,11 +3,10 @@ import { Controller } from "@hotwired/stimulus"
 // Connects to data-controller="order"
 export default class extends Controller {
   connect() {
-    console.log('connected with order')
   }
 
   onClick(event) {
-    debugger
+    // debugger
     event.preventDefault();
     alert("Link was clicked!");
   }
@@ -32,14 +31,103 @@ export default class extends Controller {
 
   //   handler.openIframe();
   // }
-  payWithPaystack() {
+
+  createAndPay() {
+    console.log('createAndPay');
+    const csrfToken = document.querySelector("meta[name='csrf-token']").content;
+    const url = `/orders`;
+
+    fetch(url, {
+      method: "POST",
+      headers: {
+        "X-CSRF-Token": csrfToken,
+        "Accept": "application/json",
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => {
+        if (response.ok) {
+          console.log("order created")
+          return response.json();
+        } else {
+          console.error("Error:", response);
+          return response.json();
+        }
+      })
+      .then((data) => {
+        if (data.error) {
+          alert(`Error: ${data.error}`);
+        } else {
+          this.payWithPaystack(data.order_id)
+        }
+      });
+  }
+
+
+  payWithPaystack(order_id) { 
     const paystack = new PaystackPop();
 
     paystack.newTransaction({
       key: 'pk_test_deebbde4eab19e1f1dd98af8f68c04553d379249',
       email: 'umer.butt@devsinc.com',
-      amount: 10000
+      amount: 10000,
+
+      onSuccess: (transaction) => { 
+        console.log(transaction.response);
+        this.updateOrderStatus(order_id);
+      }
+      // callback: function(response) {
+      //   var reference = response.reference;
+      //   const csrfToken = document.querySelector("meta[name='csrf-token']").content;
+      //   var transactionUrl = `https://api.paystack.co/transaction/verify/${reference}`;
+      //   var paystackKey = "sk_test_REDACTED";
+    
+      //   fetch(transactionUrl, {
+      //       method: "GET",
+      //       headers: {
+      //         "X-CSRF-Token": csrfToken,
+      //         "Authorization": "Bearer " + paystackKey,
+      //       },
+      //   })
+      //     .then(response => response.json())
+      //     .then(data => {
+      //       if (data.status) {
+      //         console.log("updateOrderStatus");
+      //         console.log(order_id);
+      //         this.updateOrderStatus(order_id);
+      //       } else {
+      //         this.deleteOrder(order_id);
+      //       }
+      //     });
+      // }
     });
   }
 
+  updateOrderStatus(order_id) {
+    const csrfToken = document.querySelector("meta[name='csrf-token']").content;
+    const url = `/orders/${order_id}`;
+
+    fetch(url, {
+      method: "PATCH",
+      headers: {
+        "X-CSRF-Token": csrfToken,
+        "Accept": "application/html",
+        "Content-Type": "application/html",
+      },
+    });
+  }
+
+  deleteOrder(order_id) {
+    const csrfToken = document.querySelector("meta[name='csrf-token']").content;
+    const url = `/orders/${order_id}`;
+
+    fetch(url, {
+      method: "DELETE",
+      headers: {
+        "X-CSRF-Token": csrfToken,
+        "Accept": "application/html",
+        "Content-Type": "application/html",
+      },
+    });
+  }
 }
