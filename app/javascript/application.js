@@ -17,21 +17,29 @@ function initializeDrawer() {
 
 
   // This is just an example. Your actual logic to show/hide the drawer might be different.
-  drawerButton.addEventListener('click', () => {
-      drawer.style.transform = 'translateX(0)'; // Show the drawer
-  });
+  if (drawerButton) {
+    drawerButton.addEventListener('click', () => {
+        drawer.style.transform = 'translateX(0)'; // Show the drawer
+    });
+  }
 
-  closeButton.addEventListener('click', () => {
-      drawer.style.transform = 'translateX(-100%)'; // Hide the drawer
-  });
+  if (closeButton) {
+    closeButton.addEventListener('click', () => {
+        drawer.style.transform = 'translateX(-100%)'; // Hide the drawer
+    });
+  }
 
-  modalButton.addEventListener("click", () => {
-    modal.classList.remove('hidden');   
-  })
+  if (modalButton) {
+    modalButton.addEventListener("click", () => {
+      modal.classList.remove('hidden');   
+    })
+  }
 
-  modalClose.addEventListener("click", () => {
-    modal.classList.add('hidden');
-  })
+  if (modalClose) {
+    modalClose.addEventListener("click", () => {
+      modal.classList.add('hidden');
+    })
+  }
 }
 
 var navbar = document.getElementById('navbar');
