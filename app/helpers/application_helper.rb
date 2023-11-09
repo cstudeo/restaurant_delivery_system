@@ -13,7 +13,8 @@ module ApplicationHelper
 	end
 
     def cart_count
-        user_signed_in? ? current_cart.order_items.count : (session[:order_details] || []).length
+        matching_order_items = session[:order_details]&.select { |order_item| (order_item[:restaurant_id] ||  order_item['restaurant_id']) == current_restaurant.id }
+        user_signed_in? ? current_cart.order_items.count : (matching_order_items || []).length
     end
 
 	def total_amount_for_session
@@ -36,16 +37,13 @@ module ApplicationHelper
 	end
 
     def eligible_carriers
-        current_date = Date.current
-        carriers = Carrier.is_available
+        # current_date = Date.current
+        # carriers = Carrier.is_available
 
-        eligible_carriers = carriers.includes(:orders)
-                                    .left_outer_joins(:orders)
-                                    .where('DATE(orders.created_at) = ? OR orders.id IS NULL', current_date)
-                                    .group('users.id')
-                                    .having('COUNT(orders.id) < 10')
+        # eligible_carriers = carriers.includes(:orders).left_outer_joins(:orders).where('DATE(orders.created_at) = ? OR orders.id IS NULL', current_date).group('users.id').having('COUNT(orders.id) < 10')
 
-        eligible_carriers.order('RANDOM()').first
+        # eligible_carriers.order('RANDOM()').first
+        Carrier.last
     end
 
 	def cart_total

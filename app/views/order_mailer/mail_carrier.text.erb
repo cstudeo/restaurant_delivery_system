@@ -1,0 +1,24 @@
+Order Information:
+-----------------
+Order ID: <%= @order.id %>
+Date: <%= l(@order.created_at.in_time_zone, format: :long) %>
+
+Customer Information:
+-------------------
+Name: <%= @order.customer.first_name %> <%= @order.customer.last_name %>
+Email: <%= @order.customer.email %>
+Phone Number: <%= @order.customer.phone_number %>
+
+Restaurant Information:
+-----------------------
+Name: <%= @order.restaurant.name %>
+
+Order Items:
+------------
+<% @order.order_items.each do |order_item| %>
+<%= order_item.food_item.name %>
+  - Quantity: <%= order_item.quantity %>
+  - Price per item: $<%= order_item.food_item.price %>
+  - Total: $<%= order_item.total %>
+
+Total Amount: $<%= @order.total_amount %>
