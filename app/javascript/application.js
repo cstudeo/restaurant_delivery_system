@@ -11,15 +11,35 @@ function initializeDrawer() {
   const drawerButton = document.querySelector('[data-drawer-show="drawer-example"]');
   const drawer = document.querySelector('#drawer-example');
   const closeButton = document.querySelector('[data-drawer-hide="drawer-example"]');
+  const modalButton = document.querySelector('[data-modal-target="default-modal"]');
+  const modal = document.querySelector('#default-modal');
+  const modalClose = document.querySelector('[data-modal-hide="default-modal"]');
+
 
   // This is just an example. Your actual logic to show/hide the drawer might be different.
-  drawerButton.addEventListener('click', () => {
-      drawer.style.transform = 'translateX(0)'; // Show the drawer
-  });
+  if (drawerButton) {
+    drawerButton.addEventListener('click', () => {
+        drawer.style.transform = 'translateX(0)'; // Show the drawer
+    });
+  }
 
-  closeButton.addEventListener('click', () => {
-      drawer.style.transform = 'translateX(-100%)'; // Hide the drawer
-  });
+  if (closeButton) {
+    closeButton.addEventListener('click', () => {
+        drawer.style.transform = 'translateX(-100%)'; // Hide the drawer
+    });
+  }
+
+  if (modalButton) {
+    modalButton.addEventListener("click", () => {
+      modal.classList.remove('hidden');   
+    })
+  }
+
+  if (modalClose) {
+    modalClose.addEventListener("click", () => {
+      modal.classList.add('hidden');
+    })
+  }
 }
 
 var navbar = document.getElementById('navbar');
