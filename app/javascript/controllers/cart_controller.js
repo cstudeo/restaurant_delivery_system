@@ -6,6 +6,11 @@ export default class extends Controller {
     console.log("connected")
   }
 
+  showModal() {
+    const modal = document.querySelector('#default-modal');
+    modal.classList.remove('hidden');
+  }
+
   session_decrement(e) {
     const id = parseInt(e.target.dataset.id);
     const input = document.querySelector(`#food-quantity-${id}`);
