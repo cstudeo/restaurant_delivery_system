@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_11_01_182343) do
+ActiveRecord::Schema[7.0].define(version: 2023_11_09_161114) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -148,7 +148,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_01_182343) do
     t.string "last_name", default: "", null: false
     t.string "phone_number", default: "", null: false
     t.boolean "is_available", default: false
-    t.integer "daily_orders_count"
+    t.integer "daily_orders_count", default: 0
     t.string "type"
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
@@ -165,6 +165,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_01_182343) do
     t.bigint "carrier_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "bank_name"
     t.index ["carrier_id"], name: "index_verification_details_on_carrier_id"
   end
 

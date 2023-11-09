@@ -3,6 +3,7 @@ class CarriersController < ApplicationController
   before_action :authenticate_user!
 
   def index
+    @orders = current_user.orders
   end
 
   def edit
@@ -34,7 +35,7 @@ class CarriersController < ApplicationController
   end
 
   def verification_params
-    params.permit(:account_number, :card_picture, :personal_picture).tap do |verification_params|
+    params.permit(:account_number, :bank_name, :card_picture, :personal_picture).tap do |verification_params|
       verification_params[:carrier_id] = current_user.id
     end
   end
