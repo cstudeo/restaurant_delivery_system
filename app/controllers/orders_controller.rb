@@ -20,6 +20,7 @@ class OrdersController < ApplicationController
             @cart.order_items.each do |order_item|
               order_item.update(order_id: @order.id, cart_id: nil)
             end
+            OrderMailer.new_order_mail(@order).deliver_now
             redirect_to order_path(@order)
         else
             flash[:alert] = "Unable to process the order. Please try again later."

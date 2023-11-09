@@ -20,18 +20,20 @@
     <% if session[:order_details] %>
         <% session[:order_details].each do |item| %>
             <% food_item = FoodItem.find_by(id: item["food_item_id"] || item[:food_item_id]) %>
-            <div id="order-item-<%= food_item.id %>" class="inline-flex items-center justify-center grid grid-cols-3 m-3">
-                <div class='grid grid-cols-2 items-center' >
-                    <%= cl_image_tag(food_item.picture.key, class: "pr-2 w-20 h-20 rounded") %>
-                    <h3><%= food_item.name%></h3>
-                </div>
-                <h3 id="item-total-<%=food_item.id%>" class='text-right'>$<%= food_item.price * (item['quantity'] || item[:quantity]).to_i %></h3>
-                <div class="grid grid-cols-3 m-3">
-                    <span data-id= <%=food_item.id%> data-price= <%=food_item.price%> data-action= "click->cart#session_decrement" class="ml-auto input-number-decrement">–</span><span class="input-number" id="food-quantity-<%=food_item.id%>" type="text"><%= item['quantity'] || item[:quantity] %></span><span data-id= <%=food_item.id%> data-price= <%=food_item.price%> data-action= "click->cart#session_increment" class="input-number-increment">+</span>
-                </div>
-            </div> 
-                
-            <hr>
+            <% if food_item.restaurant == current_restaurant %>
+                <div id="order-item-<%= food_item.id %>" class="inline-flex items-center justify-center grid grid-cols-3 m-3">
+                    <div class='grid grid-cols-2 items-center' >
+                        <%= cl_image_tag(food_item.picture.key, class: "pr-2 w-20 h-20 rounded") %>
+                        <h3><%= food_item.name%></h3>
+                    </div>
+                    <h3 id="item-total-<%=food_item.id%>" class='text-right'>$<%= food_item.price * (item['quantity'] || item[:quantity]).to_i %></h3>
+                    <div class="grid grid-cols-3 m-3">
+                        <span data-id= <%=food_item.id%> data-price= <%=food_item.price%> data-action= "click->cart#session_decrement" class="ml-auto input-number-decrement">–</span><span class="input-number" id="food-quantity-<%=food_item.id%>" type="text"><%= item['quantity'] || item[:quantity] %></span><span data-id= <%=food_item.id%> data-price= <%=food_item.price%> data-action= "click->cart#session_increment" class="input-number-increment">+</span>
+                    </div>
+                </div> 
+                    
+                <hr>
+            <%end%>
         <% end %>
     <% end %>
 <% end %>
