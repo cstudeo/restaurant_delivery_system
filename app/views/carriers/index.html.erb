@@ -1,9 +1,15 @@
 <% if !verification_details_present? %>
   <%= render 'verification_form' %>
 <% elsif !current_user.is_verified %>
-  <%= render 'stepers' %>
+  <div class="mx-4 my-5">
+    <h1 class="mb-4 text-2xl font-extrabold leading-none tracking-tight text-gray-900 md:text-3xl lg:text-4xl">Your Account is pending for verification</h1>
+    <%= render 'stepers' %>
+  </div>
 <% else %>
-  <h1>your dashboard</h1>
+  <div class="flex flex-col my-10 mx-10">
+    <h1 class="text-center mb-4 text-2xl font-extrabold leading-none tracking-tight text-gray-900 md:text-3xl lg:text-4xl">Order History</h1>
+    <%= render 'order_details'%>
+  </div>
 <% end %>
 
 <div data-controller="carrier"></div>
