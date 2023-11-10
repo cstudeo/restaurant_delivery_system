@@ -1,11 +1,14 @@
 class OrdersController < ApplicationController
     before_action :authenticate_user!
-    before_action :set_cart, only: [:create]
+    before_action :set_cart, only: [:create, :new]
     before_action :set_restaurant, only: [:create]
     before_action :set_customer, only: [:create]
     before_action :set_carrier, only: [:create]
 
     def new
+      @cart.coupon_applied = false
+      @cart[:total_amount] = @cart.total_amount
+      @cart.save
     end
 
     def create
@@ -13,7 +16,7 @@ class OrdersController < ApplicationController
           customer: @customer,
           restaurant: @restaurant,
           carrier: @carrier,
-          total_amount: @cart.total_amount
+          total_amount: @cart[:total_amount]
       )
       if @order.save
           @cart.order_items.each do |order_item|

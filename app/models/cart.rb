@@ -2,7 +2,7 @@ class Cart < ApplicationRecord
   belongs_to :user
   belongs_to :restaurant
   has_many :order_items
-  before_save :set_total_amount
+  before_create :set_total_amount
 
   def total_amount
     order_items.collect do |order_item|
