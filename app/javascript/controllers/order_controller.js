@@ -3,12 +3,50 @@ import { Controller } from "@hotwired/stimulus"
 // Connects to data-controller="order"
 export default class extends Controller {
   connect() {
+    console.log("order_controller.js");
   }
 
   onClick(event) {
     // debugger
     event.preventDefault();
     alert("Link was clicked!");
+  }
+
+  applyCoupon(e) {
+    const couponInput = this.element.querySelector("#coupon");
+    const errorMessageElement = this.element.querySelector("#coupon-error-message");
+    const errorSuccessElement = this.element.querySelector("#coupon-success-message");
+    const couponCode = couponInput.value;
+    const id = parseInt(e.target.dataset.id);
+
+    if (couponCode.trim() === "") {
+      // Display a message next to the coupon field
+      errorMessageElement.innerText = "Please enter a valid coupon code.";
+      return;
+    }
+    // Clear any previous error message
+    errorSuccessElement.innerText = "";
+    errorMessageElement.innerText = "";
+
+    fetch(`/carts/${id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]').content,
+      },
+      body: JSON.stringify({ code: couponCode }),
+    })
+      .then(response => response.json())
+      .then(data => {
+        if (data.error) {
+          errorMessageElement.innerText = data.error;
+        } else {
+          const totalAmountElement = this.element.querySelector("#totalAmount");
+          totalAmountElement.innerText = `Total Amount: $${data.new_total_amount}`;
+
+          errorSuccessElement.innerText = data.message;
+        }
+      });
   }
 
   // payWithPaystack() {
