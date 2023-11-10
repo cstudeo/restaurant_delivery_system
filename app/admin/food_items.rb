@@ -1,15 +1,16 @@
 ActiveAdmin.register FoodItem do
   menu parent: 'RESTAURANTS', label: 'FOOD ITEMS'
 
-  permit_params :name, :restaurant_id, :price, :picture
+  permit_params :name, :price, :description, :restaurant_id, :picture
   filter :name
   filter :restaurant
   filter :price
 
   form html: { multipart: true } do |f|
-    f.inputs "food_items" do
+    f.inputs "Food Item" do
       f.input :name
       f.input :price
+      f.input :description
       f.input :restaurant
       f.file_field :picture, form_html: { multiple: true }
     end
