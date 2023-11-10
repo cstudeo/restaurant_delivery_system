@@ -23,10 +23,10 @@
         </div>
         <!-- Right -->
         <div class="flex items-center justify-end space-x-6">
+            <%= link_to "Home", root_path, class: "poppins" %>
             <% if user_signed_in? %>
                 <%= button_to "Sign Out", destroy_user_session_path, method: :delete, class: "bg-red-600 px-6 py-3 text-white poppins rounded-full ring-red-300 focus:outline-none focus:ring-4 transform transition duration-700 hover:scale-105" %>
             <%else%>
-                <%= link_to "Home", root_path, class: "poppins" %>
                 <%= button_to "Sign In", new_user_session_path, class: "poppins" %>
                 <%= link_to "Sign Up", new_user_registration_path, class: "bg-primary px-6 py-3 text-white poppins rounded-full ring-red-300 focus:outline-none focus:ring-4 transform transition duration-700 hover:scale-105" %>
             <% end %>
