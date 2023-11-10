@@ -7,9 +7,9 @@
       <div id="tab-1" class="mt-5 tab-pane fade in active">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
           <% @food_items.each do |food_item| %>
-            <div class="row flex justify-between items-center">
+            <div class="row flex justify-between items-center transform transition duration-600 hover:scale-105">
               <div class="w-2/3 flex items-center">
-                <%= cl_image_tag(food_item.picture.key, alt: food_item.name, class: "w-20 h-20 rounded") %>
+                <%= cl_image_tag(food_item.picture.key, alt: food_item.name, class: "w-25 h-25 md:w-40 md:h-40 rounded") %>
                 <div class="w-full ml-4">
                   <h5 class="border-b border-gray-300 pb-2 text-gray-800">
                     <span><%= food_item.name %></span>
@@ -20,11 +20,11 @@
                 </div>
               </div>
               <div class="w-1/3 flex justify-center items-center">
-                <span class="text-primary"><%= number_to_currency(food_item.price, precision: 1) %></span>
+                <span class=" transform transition duration-700 hover:scale-105 text-primary"><%= number_to_currency(food_item.price, precision: 1) %></span>
                 <%= form_with model: @order_item, remote: true, data: { type: :json } do |f| %>
                   <%= f.hidden_field :food_item_id, value: food_item.id %>
                   <%= f.hidden_field :quantity, value: 1 %>
-                  <%= f.submit "Add To Cart", class: "bg-red-600 text-white px-3 py-2 focus:outline-none poppins rounded-full ml-4 focus:outline-none focus:ring-4 transform transition duration-700 hover:scale-105" %>
+                  <%= f.submit "Add To Cart", class: "bg-red-600 text-white px-3 py-2 focus:outline-none poppins rounded-full ml-4 focus:outline-none focus:ring-4 transform transition duration-700 hover:scale-105 hover:bg-red-800" %>
                 <% end %>
               </div>
             </div>
