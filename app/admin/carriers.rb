@@ -1,7 +1,7 @@
 ActiveAdmin.register Carrier do
   menu priority: 5
 
-  permit_params :name, :phone_number, :is_available
+  permit_params :name, :phone_number, :is_available, :is_verified
 
   index do
     selectable_column
@@ -14,6 +14,7 @@ ActiveAdmin.register Carrier do
     column :is_available
     column :daily_orders_count
     column :account_number
+    column :is_verified
     actions
   end
 
@@ -46,6 +47,31 @@ ActiveAdmin.register Carrier do
     end
     active_admin_comments
   end
+
+  form do |f|
+    f.inputs "Carrier" do
+        f.input :email
+        f.input :is_available
+        f.input :is_verified
+    end
+    f.button :Submit
+  end
+
+  # edit do
+  #   attributes_table do
+  #     row :email
+  #     row :is_available
+  #     row :is_verified
+
+  #     row :personal_picture do |user|
+  #       image_tag user.verification_detail.personal_picture.url, size: "200x200"
+  #     end
+  #     row :student_card do |user|
+  #       image_tag user.verification_detail.card_picture.url, size: "200x200"
+  #     end
+  #   end
+  #   active_admin_comments
+  # end
 
   # See permitted parameters documentation:
   # https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
