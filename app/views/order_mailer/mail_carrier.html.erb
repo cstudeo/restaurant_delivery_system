@@ -1,43 +1,42 @@
 <div>
+  <div>
     <div>
-
-      <div>
-        <h2>Order Information</h2>
-        <p><strong>Order ID:</strong> <%= @order.id %></p>
-        <p><strong>Date:</strong> <%= l(@order.created_at.in_time_zone, format: :long) %></p>
-      </div>
-
-      <div>
-        <h2>Customer Information</h2>
-        <p><strong>Name:</strong> <%= @order.customer.first_name %> <%= @order.customer.last_name %></p>
-        <p><strong>Email:</strong> <%= @order.customer.email %></p>
-        <p><strong>Phone Number:</strong> <%= @order.customer.phone_number %></p>
-      </div>
-
-      <div>
-        <h2>Restaurant Information</h2>
-        <p><strong>Name:</strong> <%= @order.restaurant.name %></p>
-      </div>
-
-      <div>
-        <h2>Order Items</h2>
-        <ul>
-            <% @order.order_items.each do |order_item| %>
-                <li>
-                    <div>
-                        <div>
-                            <h3><%= order_item.food_item.name %></h3>
-                            <p><%= order_item.quantity %> x $<%= order_item.food_item.price %></p>
-                        </div>
-                    </div>
-                    <p>$<%= order_item.total %></p>
-                </li>
-            <% end %>
-        </ul>
-      </div>
-
-      <div>
-        <h2>Total Amount: $<%= @order.total_amount %></p>
-      </div>
+      <h2>Order Information</h2>
+      <p><strong>Order ID:</strong> <%= @order.id %></p>
+      <p><strong>Date:</strong> <%= l(@order.created_at.in_time_zone, format: :long) %></p>
     </div>
+
+    <div>
+      <h2>Customer Information</h2>
+      <p><strong>Name:</strong> <%= @order.customer.first_name %> <%= @order.customer.last_name %></p>
+      <p><strong>Email:</strong> <%= @order.customer.email %></p>
+      <p><strong>Phone Number:</strong> <%= @order.customer.phone_number %></p>
+    </div>
+
+    <div>
+      <h2>Restaurant Information</h2>
+      <p><strong>Name:</strong> <%= @order.restaurant.name %></p>
+    </div>
+
+    <div>
+      <h2>Order Items</h2>
+      <ul>
+        <% @order.order_items.each do |order_item| %>
+          <li>
+            <div>
+              <div>
+                <h3><%= order_item.food_item.name %></h3>
+                <p><%= order_item.quantity %> x $<%= order_item.food_item.price %></p>
+              </div>
+            </div>
+            <p>$<%= order_item.total %></p>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+
+    <div>
+      <h2>Total Amount: $<%= @order.total_amount %></p>
+    </div>
+  </div>
 </div>
