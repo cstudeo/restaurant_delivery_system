@@ -13,22 +13,22 @@ class OrdersController < ApplicationController
 
   def create
     @order = Order.new(
-        customer: @customer,
-        restaurant: @restaurant,
-        carrier: @carrier,
-        total_amount: @cart[:total_amount]
+      customer: @customer,
+      restaurant: @restaurant,
+      carrier: @carrier,
+      total_amount: @cart[:total_amount]
     )
     if @order.save
-        @cart.order_items.each do |order_item|
-          order_item.update(order_id: @order.id, cart_id: nil)
-        end
-        render json: {  
-            total_amount: @order.total_amount,
-            account_number: @carrier.verification_detail.account_number,
-            order_id: @order.id
-        }
+      @cart.order_items.each do |order_item|
+        order_item.update(order_id: @order.id, cart_id: nil)
+      end
+      render json: {  
+        total_amount: @order.total_amount,
+        account_number: @carrier.verification_detail.account_number,
+        order_id: @order.id
+      }
     else
-        render json: { error: 'Unable to process the order. Carriers not available. Please try again later.' }
+      render json: { error: 'Unable to process the order. Carriers not available. Please try again later.' }
     end
   end
 
@@ -66,11 +66,11 @@ class OrdersController < ApplicationController
   def destroy 
     @order = Order.find(params[:id])
     @order.order_items.each do |order_item|
-        order_item.update(order_id: nil, cart_id: current_cart.id)
+      order_item.update(order_id: nil, cart_id: current_cart.id)
     end
     if @order.destroy
-        flash[:alert] = "Unable to process the payment. Please try again later."
-        redirect_to root_path
+      flash[:alert] = "Unable to process the payment. Please try again later."
+      redirect_to root_path
     end
   end
 
