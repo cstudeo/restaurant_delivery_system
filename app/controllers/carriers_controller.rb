@@ -7,12 +7,12 @@ class CarriersController < ApplicationController
   end
 
   def edit
+    @account_number = current_user.verification_detail&.account_number
   end
-
 
   def update
     current_user.update(update_params.except(:account_number))
-    current_user.verification_detail.update(account_number: update_params[:acccount_number])
+    current_user.verification_detail.update(account_number: update_params[:account_number])
     redirect_to carriers_path
   end
 

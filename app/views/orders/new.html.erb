@@ -1,48 +1,47 @@
 <div class="container mx-auto p-4 border-gray-300" data-controller="order">
-    <div class="border-gray-300 p-6 rounded-lg shadow-md">
-        <h1 class="text-3xl font-semibold mb-4">Order Details</h1>
+  <div class="border-gray-300 p-6 rounded-lg shadow-md">
+    <h1 class="text-3xl font-semibold mb-4">Order Details</h1>
 
-        <div class="mb-6">
-            <h3 class="text-xl font-semibold mb-2">Restaurant Name: <%= current_cart.restaurant&.name %></h3>
-        </div>
-
-        <div>
-            <h3 class="text-xl font-semibold mb-2">Order Items</h3>
-            <ul>
-                <% current_cart.order_items.each do |order_item| %>
-                    <li class="flex items-center justify-between border-b border-gray-300 py-2">
-                        <div class="flex items-center">
-                            <%= cl_image_tag(order_item.food_item.picture.key, alt: order_item.food_item.name, class: "w-10 h-10 object-cover mr-2") %>
-                            <div>
-                                <h3><%= order_item.food_item.name %></h3>
-                                <p><%= order_item.quantity %> x $<%= order_item.food_item.price %></p>
-                            </div>
-                        </div>
-                        <p>$<%= order_item.total %></p>
-                    </li>
-                <% end %>
-            </ul>
-        </div>
-
-        <!-- Coupon Field -->
-        <h2 class="pl-5 mt-8 font-bold"> Have a coupon? </h2>
-        <div class="border border-gray-600 rounded-full p-1 box-border bg-white overflow-hidden ring-red-300 focus:ring-4 w-96 flex items-center">
-            <input type="text" id="coupon" class="border-none rounded-full px-4 w-full bg-transparent" placeholder="Enter coupon code...">
-            <button data-id= "<%=current_cart.id%>" data-action="click->order#applyCoupon" class="text-sm bg-primary py-3 px-6 rounded-full text-white poppins ring-red-300 focus:ring-4 transition duration-300 hover:scale-105 transform">Apply</button>
-        </div>
-            <p class="text-red-500 pl-5" id='coupon-error-message'></p>
-            <p class="text-green-500 pl-5" id='coupon-success-message'></p>
-
-
-        <!-- Total Amount -->
-        <div class="mt-6">
-            <h3 class="text-xl font-semibold" id="totalAmount">Total Amount: $<%= number_with_precision(@cart[:total_amount], precision: 2) %></h3>
-        </div>
-
-        <div class="grid text-center ml-3 m-5">  
-            <%= link_to "Pay now", 'https://paystack.com/pay/order_payment', style: 'width: -webkit-fill-available;', class: 'bg-red-600 px-6 py-3 text-white poppins rounded-full ring-red-300 focus:outline-none focus:ring-4 transform transition duration-700 hover:scale-105' %>       
-        </div>
+    <div class="mb-6">
+      <h3 class="text-xl font-semibold mb-2">Restaurant Name: <%= current_cart.restaurant&.name %></h3>
     </div>
+
+    <div>
+      <h3 class="text-xl font-semibold mb-2">Order Items</h3>
+      <ul>
+        <% current_cart.order_items.each do |order_item| %>
+          <li class="flex items-center justify-between border-b border-gray-300 py-2">
+            <div class="flex items-center">
+              <%= cl_image_tag(order_item.food_item.picture.key, alt: order_item.food_item.name, class: "w-10 h-10 object-cover mr-2") %>
+              <div>
+                <h3><%= order_item.food_item.name %></h3>
+                <p><%= order_item.quantity %> x $<%= order_item.food_item.price %></p>
+              </div>
+            </div>
+            <p>$<%= order_item.total %></p>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+
+    <!-- Coupon Field -->
+    <h2 class="pl-5 mt-8 font-bold"> Have a coupon? </h2>
+    <div class="border border-gray-600 rounded-full p-1 box-border bg-white overflow-hidden ring-red-300 focus:ring-4 w-96 flex items-center">
+      <input type="text" id="coupon" class="border-none rounded-full px-4 w-full bg-transparent" placeholder="Enter coupon code...">
+      <button data-id= "<%=current_cart.id%>" data-action="click->order#applyCoupon" class="text-sm bg-primary py-3 px-6 rounded-full text-white poppins ring-red-300 focus:ring-4 transition duration-300 hover:scale-105 transform">Apply</button>
+    </div>
+    <p class="text-red-500 pl-5" id='coupon-error-message'></p>
+    <p class="text-green-500 pl-5" id='coupon-success-message'></p>
+
+    <!-- Total Amount -->
+    <div class="mt-6">
+      <h3 class="text-xl font-semibold" id="totalAmount">Total Amount: $<%= number_with_precision(@cart[:total_amount], precision: 2) %></h3>
+    </div>
+
+    <%= form_with(url: payments_path, method: :post, local: false) do |form| %>
+      <div class="grid text-center ml-3 m-5">
+        <%= form.button "Pay now", style: 'width: -webkit-fill-available;', class: 'bg-red-600 px-6 py-3 text-white poppins rounded-full ring-red-300 focus:outline-none focus:ring-4 transform transition duration-700 hover:scale-105' %>
+      </div>
+    <% end %>
+  </div>
 </div>
-
-
