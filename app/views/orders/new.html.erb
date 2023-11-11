@@ -38,10 +38,8 @@
       <h3 class="text-xl font-semibold" id="totalAmount">Total Amount: $<%= number_with_precision(@cart[:total_amount], precision: 2) %></h3>
     </div>
 
-    <%= form_with(url: payments_path, method: :post, local: false) do |form| %>
-      <div class="grid text-center ml-3 m-5">
-        <%= form.button "Pay now", style: 'width: -webkit-fill-available;', class: 'bg-red-600 px-6 py-3 text-white poppins rounded-full ring-red-300 focus:outline-none focus:ring-4 transform transition duration-700 hover:scale-105' %>
-      </div>
-    <% end %>
+    <div class="grid text-center ml-3 m-5">  
+      <%= link_to "Pay now", 'https://paystack.com/pay/order_payment', style: 'width: -webkit-fill-available;', class: 'bg-red-600 px-6 py-3 text-white poppins rounded-full ring-red-300 focus:outline-none focus:ring-4 transform transition duration-700 hover:scale-105' %>       
+    </div>
   </div>
 </div>

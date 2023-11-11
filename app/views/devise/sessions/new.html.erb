@@ -56,10 +56,10 @@
             <div class="mx-auto max-w-xs">
               <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
                 <div class="field">
-                  <%= f.email_field :email, autocomplete: "email", placeholder: "Email Address", class: "w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"%>
+                  <%= f.email_field :email, autocomplete: "email", placeholder: "Email Address", required: true, class: "w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"%>
                 </div>
                 <div class="field">
-                  <%= f.password_field :password, autocomplete: "current-password", placeholder: 'Password', class: 'w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5' %>
+                  <%= f.password_field :password, autocomplete: "current-password", placeholder: 'Password', required: true, class: 'w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5' %>
                 </div>
               <% if devise_mapping.rememberable? %>
                   <div class="field">
