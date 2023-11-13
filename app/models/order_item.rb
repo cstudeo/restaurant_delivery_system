@@ -10,11 +10,7 @@ class OrderItem < ApplicationRecord
   end
 
   def unit_price    
-    if persisted?
-      self[:unit_price]
-    else
-      food_item.price
-    end
+    persisted? ? self[:unit_price] : food_item.price
   end
 
   def total

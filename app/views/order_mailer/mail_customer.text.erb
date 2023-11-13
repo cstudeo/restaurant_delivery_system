@@ -17,9 +17,9 @@ Order Items:
 ------------
 <% @order.order_items.each do |order_item| %>
   <%= order_item.food_item.name %>
-    - Quantity: <%= order_item.quantity %>
-    - Price per item: $<%= order_item.food_item.price %>
-    - Total: $<%= order_item.total %>
+  - Quantity: <%= order_item.quantity %>
+  - Price per item: $<%= order_item.food_item.price %>
+  - Total: $<%= order_item.total %>
 <% end %>
 
 Total Amount: $<%= @order.total_amount %>

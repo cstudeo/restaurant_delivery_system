@@ -13,38 +13,38 @@ module ApplicationHelper
 	end
 
     def cart_count
-        matching_order_items = session[:order_details]&.select { |order_item| (order_item[:restaurant_id] ||  order_item['restaurant_id']) == current_restaurant.id }
-        user_signed_in? ? current_cart.order_items.count : (matching_order_items || []).length
+      matching_order_items = session[:order_details]&.select { |order_item| (order_item[:restaurant_id] ||  order_item['restaurant_id']) == current_restaurant.id }
+      user_signed_in? ? current_cart.order_items.count : (matching_order_items || []).length
     end
 
 	def total_amount_for_session
     total = 0.to_d
 
     if session[:order_details]
-        session[:order_details].each do |item|
-            food_item = FoodItem.find_by(id: item["food_item_id"])
-            
-            if food_item
-            unit_price = food_item.price.to_d || 0.to_d
-            quantity = item["quantity"].to_i || 0
-            
-            total += (unit_price * quantity)
-            end
+      session[:order_details].each do |item|
+        food_item = FoodItem.find_by(id: item["food_item_id"])
+        
+        if food_item
+          unit_price = food_item.price.to_d || 0.to_d
+          quantity = item["quantity"].to_i || 0
+          
+          total += (unit_price * quantity)
         end
+      end
     end
     
     total
 	end
 
-    def eligible_carriers
-        # current_date = Date.current
-        # carriers = Carrier.is_available
+  def eligible_carriers
+    # current_date = Date.current
+    # carriers = Carrier.is_available
 
-        # eligible_carriers = carriers.includes(:orders).left_outer_joins(:orders).where('DATE(orders.created_at) = ? OR orders.id IS NULL', current_date).group('users.id').having('COUNT(orders.id) < 10')
+    # eligible_carriers = carriers.includes(:orders).left_outer_joins(:orders).where('DATE(orders.created_at) = ? OR orders.id IS NULL', current_date).group('users.id').having('COUNT(orders.id) < 10')
 
-        # eligible_carriers.order('RANDOM()').first
-        Carrier.last
-    end
+    # eligible_carriers.order('RANDOM()').first
+    Carrier.last
+  end
 
 	def cart_total
 		user_signed_in? ? current_cart.total_amount : total_amount_for_session

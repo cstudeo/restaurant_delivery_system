@@ -6,6 +6,6 @@ class Customer < User
   end
 
   def self.ransackable_associations(auth_object = nil)
-  ["orders"]
+    ["orders"]
   end
 end
