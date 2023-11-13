@@ -20,11 +20,11 @@ class OrderItemsController < ApplicationController
         food_item_id: params[:order_item][:food_item_id].to_i,
         restaurant_id: @restaurant.id
       }
-      
+
       matching_item = session[:order_details].find do |item|
         item["food_item_id"] == new_data[:food_item_id]
       end
-      
+
       if matching_item
         matching_item["quantity"] = (matching_item["quantity"].to_i + new_data[:quantity]).to_s
       else
