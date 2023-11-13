@@ -16,6 +16,7 @@ Rails.application.routes.draw do
 
   resources :carts, only: [:update]
   resources :order_items
+  resources :payments, only: [:create]
   resources :restaurants, only: [:index] do
     resources :food_items, only: [:index]
   end
