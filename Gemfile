@@ -11,6 +11,8 @@ gem 'cloudinary'
 
 gem "rails", "~> 7.0.8"
 
+gem 'paystack'
+
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem "sprockets-rails"
 
