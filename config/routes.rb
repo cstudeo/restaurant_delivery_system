@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   resources :carriers, only: [:index, :edit, :update] do
     post :update_availibilty, on: :collection
     post :verification_details, on: :collection
+    get :show_order, on: :member
   end
 
   resources :carts, only: [:update]
