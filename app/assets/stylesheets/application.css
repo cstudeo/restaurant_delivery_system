@@ -39,6 +39,7 @@
   width: 80px;
   text-align: center;
   outline: none;
+  padding: 6px;
 }
 
 .input-number-decrement, .input-number-increment {
@@ -96,6 +97,7 @@
     text-align: center;
     outline: none;
     font-size: small;
+    padding: 0;
   }
   
   .input-number-decrement, .input-number-increment {

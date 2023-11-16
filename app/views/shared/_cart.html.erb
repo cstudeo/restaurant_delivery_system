@@ -2,13 +2,13 @@
   <% @order_items = current_cart.order_items %>
   <% if @order_items %>
     <% @order_items.each do |item| %>
-      <div id="order-item-<%= item.id %>" class="inline-flex items-center justify-center grid grid-cols-3 m-3">
-        <div class='grid grid-cols-2 items-center' >
-          <%= cl_image_tag(item.food_item.picture.key, class: "pr-2 w-20 h-20 rounded") %>
-          <h3><%= item.food_item.name%></h3>
+      <div id="order-item-<%= item.id %>" class="flex items-center justify-center grid grid-cols-4 mt-4">
+        <div class='grid items-center' >
+          <%= cl_image_tag(item.food_item.picture.key, class: "pr-2 w-30 h-20 rounded cart-item-image w-full") %>
         </div>
-        <h3 id="item-total-<%=item.id%>" class='text-right'>$<%= number_with_precision(item.total, precision: 1) %></h3>
-        <div class="grid grid-cols-3 m-3">
+        <h3 class="food-title"><%= item.food_item.name%></h3>
+        <h3 id="item-total-<%=item.id%>" class='text-right food-price'>$<%= number_with_precision(item.total, precision: 1) %></h3>
+        <div class="flex flex-row">
           <span data-id= <%=item.id%>, data-action= "click->cart#decrement" class="ml-auto input-number-decrement">–</span><span class="input-number" id="food-quantity-<%=item.id%>" type="text"><%= item.quantity %></span><span data-id= <%=item.id%>, data-action= "click->cart#increment" class="input-number-increment">+</span>
         </div>
       </div>
@@ -29,7 +29,7 @@
           <h6 id="item-total-<%=food_item.id%>" class='text-right food-price'>$<%= food_item.price * (item['quantity'] || item[:quantity]).to_i %></h6>
           <div class="flex flex-row">
             <span data-id= <%=food_item.id%> data-price= <%=food_item.price%> data-action= "click->cart#session_decrement" class="ml-auto input-number-decrement">–</span>
-            <span class="input-number px-2" id="food-quantity-<%=food_item.id%>"><%= item['quantity'] || item[:quantity] %></span>
+            <span class="input-number" id="food-quantity-<%=food_item.id%>"><%= item['quantity'] || item[:quantity] %></span>
             <span data-id= <%=food_item.id%> data-price= <%=food_item.price%> data-action= "click->cart#session_increment" class="input-number-increment">+</span>
           </div>
         </div>
