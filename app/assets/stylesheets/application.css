@@ -1,7 +1,7 @@
 .header-banner {
     background-image: url('bannerbackground.png');
     background-repeat: no-repeat;
-    background-position: 50%;
+    background-position: 100%;
     background-size: cover
 }
 .poppins {
@@ -66,3 +66,58 @@
   border-radius: 0 4px 4px 0;
 }
 
+.food-item-image {
+  width: 100%;
+  height: 25vh;
+}
+
+#drawer-example {
+  width: 50%;
+}
+
+
+@media (max-width: 768px) {
+  .header-banner {
+    width: 100%;
+  }
+
+  .food-item-image {
+    width: 100%;
+    height: 25vh;
+  }
+
+  #drawer-example {
+    width: 70%;
+  }
+
+  .input-number {
+    width: 20px;
+    height: 22px;
+    text-align: center;
+    outline: none;
+    font-size: small;
+  }
+  
+  .input-number-decrement, .input-number-increment {
+    display: inline-block;
+    width: 20px;
+    height: 22px;
+    font-size: small;
+    line-height: 19px;
+    background: #f1f1f1;
+    color: #444;
+    text-align: center;
+    font-weight: bold;
+    cursor: pointer;
+  }
+
+  .food-title, .food-price {
+    font-size: small;
+  }
+  .cart-item-image {
+    width: 30%;
+  }
+  .coupon-input {
+    width: 100%;
+  }
+}
