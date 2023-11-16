@@ -1,36 +1,18 @@
-<div class="container mx-auto py-20">
-  <div class="text-center animate__animated animate__fadeInUp animate__delay-100ms" style="animation-name: fadeInUp;">
-    <p class="border-b border-gray-300 poppins text-primary" style='font-size: x-large;'>Food Menu</p>
-  </div>
-  <div class="animate__animated animate__fadeInUp animate__delay-100ms" style="animation-name: fadeInUp;">
-    <div class="tab-content">
-      <div id="tab-1" class="mt-5 tab-pane fade in active">
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <% @food_items.each do |food_item| %>
-            <div class="row flex justify-between items-center transform transition duration-600 hover:scale-105">
-              <div class="w-2/3 flex items-center">
-                <%= cl_image_tag(food_item.picture.key, alt: food_item.name, class: "w-25 h-25 md:w-40 md:h-40 rounded") %>
-                <div class="w-full ml-4">
-                  <h5 class="border-b border-gray-300 pb-2 text-gray-800">
-                    <span><%= food_item.name %></span>
-                  </h5>
-                  <div style="height: 60px; overflow: hidden;">
-                    <small class="italic text-gray-600"><%= food_item.description %></small>
-                  </div>
-                </div>
-              </div>
-              <div class="w-1/3 flex justify-center items-center">
-                <span class=" transform transition duration-700 hover:scale-105 text-primary"><%= number_to_currency(food_item.price, precision: 1) %></span>
-                <%= form_with model: @order_item, remote: true, data: { type: :json } do |f| %>
-                  <%= f.hidden_field :food_item_id, value: food_item.id %>
-                  <%= f.hidden_field :quantity, value: 1 %>
-                  <%= f.submit "Add To Cart", class: "bg-red-600 text-white px-3 py-2 focus:outline-none poppins rounded-full ml-4 focus:outline-none focus:ring-4 transform transition duration-700 hover:scale-105 hover:bg-red-800" %>
-                <% end %>
-              </div>
-            </div>
-          <% end %>
-        </div>
-      </div>
+
+<div class="w-4/5 mx-auto flex flex-row justify-between flex-wrap my-10">
+  <% @food_items.each do |food_item| %>
+  <div class="w-full max-w-sm bg-white border border-gray-300 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 m-2 p-2">
+    <div class="w-full">
+      <%= cl_image_tag(food_item.picture.key, alt: food_item.name, class: "food-item-image") %>
     </div>
+      <div class="px-5 pb-5">
+        <h5 class="text-xl font-semibold tracking-tight text-gray-900 dark:text-white"><%= food_item.name%></h5>
+        <p><%= food_item.description %></p>
+          <div class="flex items-center justify-between">
+              <span class="text-xl font-bold text-gray-900 dark:text-white"><%= food_item.price %> NGN</span>
+              <%= button_to "Add To Cart", order_items_path, method: :post, params: { order_item: { food_item_id: food_item.id, quantity: 1 }}, class: "text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-800 dark:focus:ring-red-800" %>
+          </div>
+      </div>
   </div>
+  <% end %>
 </div>
