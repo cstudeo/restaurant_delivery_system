@@ -61,6 +61,9 @@ class OrderItemsController < ApplicationController
     if user_signed_in?
       @order_item = @cart.order_items.find(params[:id])
       @order_item.destroy
+
+      @cart.destroy if @cart.order_items.count == 0
+
       if @order_item.destroy
         render json: {
           cart_count: @cart.order_items.count, 
