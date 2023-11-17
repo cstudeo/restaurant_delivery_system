@@ -1,6 +1,7 @@
 class Cart < ApplicationRecord
   belongs_to :user
   belongs_to :restaurant
+  belongs_to :coupon, optional: true
   has_many :order_items
   before_create :set_total_amount
 

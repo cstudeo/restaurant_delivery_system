@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_11_10_143122) do
+ActiveRecord::Schema[7.0].define(version: 2023_11_16_195751) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -85,6 +85,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_10_143122) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "coupon_applied", default: false, null: false
+    t.bigint "coupon_id"
+    t.index ["coupon_id"], name: "index_carts_on_coupon_id"
     t.index ["restaurant_id"], name: "index_carts_on_restaurant_id"
     t.index ["user_id"], name: "index_carts_on_user_id"
   end
@@ -174,6 +176,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_10_143122) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "cart_items", "carts"
   add_foreign_key "cart_items", "food_items"
+  add_foreign_key "carts", "coupons"
   add_foreign_key "carts", "restaurants"
   add_foreign_key "carts", "users"
   add_foreign_key "food_items", "restaurants"
