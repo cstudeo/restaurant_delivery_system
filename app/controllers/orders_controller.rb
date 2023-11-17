@@ -6,8 +6,10 @@ class OrdersController < ApplicationController
   before_action :set_carrier, only: [:create]
 
   def new
-    @cart.coupon_applied = false
-    @cart[:total_amount] = @cart.total_amount
+    @cart.coupon_applied = @cart.coupon_applied || false
+    coupon_amount = @cart.coupon && @cart.total_amount > 0 && (@cart.total_amount - @cart.coupon&.amount) > 0 ? @cart.coupon&.amount : 0
+    @coupon_message = coupon_amount > 0 ? 'Your previous coupon is still applied for this cart' : ''
+    @cart[:total_amount] = @cart.total_amount - coupon_amount
     @cart.save
   end
 
