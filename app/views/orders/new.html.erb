@@ -31,7 +31,7 @@
       <button data-id= "<%=current_cart.id%>" data-action="click->order#applyCoupon" class="text-sm bg-primary py-3 px-6 rounded-full text-white poppins ring-red-300 focus:ring-4 transition duration-300 hover:scale-105 transform">Apply</button>
     </div>
     <p class="text-red-500 pl-5" id='coupon-error-message'></p>
-    <p class="text-green-500 pl-5" id='coupon-success-message'></p>
+    <p class="text-green-500 pl-5" id='coupon-success-message'><%= @coupon_message %></p>
 
     <!-- Total Amount -->
     <div class="mt-6">

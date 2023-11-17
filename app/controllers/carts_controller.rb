@@ -18,7 +18,7 @@ class CartsController < ApplicationController
         return
       end
       amount = @cart[:total_amount] - coupon.amount
-      if @cart.update(total_amount: amount, coupon_applied: true)
+      if @cart.update(total_amount: amount, coupon_applied: true, coupon_id: coupon.id)
         coupon.used_by = current_user.id
         render json: {  
           new_total_amount: @cart[:total_amount],
