@@ -3,6 +3,10 @@ class CarriersController < ApplicationController
   before_action :authenticate_user!
 
   def index
+    if current_user.instance_of? Customer
+      flash[:notice] = "You are not authorized to visit that page."
+      redirect_to root_path
+    end
     @orders = current_user.orders
   end
 
@@ -32,6 +36,10 @@ class CarriersController < ApplicationController
       flash[:notice] = "details are not saved"
     end
     redirect_to carriers_path
+  end
+
+  def show_order
+    @order = current_user.orders.find(params[:id])
   end
 
   def verification_params

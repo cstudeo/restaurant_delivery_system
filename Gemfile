@@ -36,6 +36,7 @@ gem "jbuilder"
 
 # Use Redis adapter to run Action Cable in production
 gem "redis", "~> 4.0"
+gem 'sidekiq'
 
 # authentication solution
 gem 'devise', '~> 4.9', '>= 4.9.3'
