@@ -43,8 +43,8 @@ class OrdersController < ApplicationController
   
     respond_to do |format|
       if @order.update(status: 1)
-        OrderMailer.mail_customer(@order).deliver_now
-        OrderMailer.mail_carrier(@order).deliver_now
+        OrderMailer.mail_customer(@order).deliver_later
+        OrderMailer.mail_carrier(@order).deliver_later
   
         format.html { redirect_to order_path(@order) }
         format.json {
