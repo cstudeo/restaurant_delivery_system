@@ -3,7 +3,6 @@ class FoodItemsController < ApplicationController
 
   def index
     @food_items = @restaurant.food_items
-    @order_item = current_cart.order_items.new
     respond_to do |format|
       format.turbo_stream
       format.html
