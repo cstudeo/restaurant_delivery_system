@@ -11,17 +11,17 @@ class OrderMailer < ApplicationMailer
 
     mail(
       to: @customer.email,
-      subject: "Order #{order.id} confirmed"
+      subject: "Order ##{order.id} confirmed"
     )
   end
-
+  
   def mail_carrier(order)
     @order = order
     @carrier = @order.carrier
 
     mail(
       to: @carrier.email,
-      subject: "Order #{order.id} confirmed"
+      subject: "Order ##{order.id} confirmed"
     )
   end
 end
