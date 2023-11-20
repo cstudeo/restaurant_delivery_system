@@ -5,7 +5,7 @@ module ApplicationHelper
   end
 
 	def current_cart
-		Cart.find_or_create_by(user: current_user, restaurant: Restaurant.find_by_id(session[:restaurant_id]))
+		@cart = Cart.find_or_create_by(user_id: current_user.id)
 	end
 
 	def current_restaurant
