@@ -39,6 +39,13 @@
     <% end %>
   <% end %>
   <% end %>
-<h3 id='grand-total' class='font-semibold'>Total: $<%= number_with_precision(cart_total, precision: 2) %></h3>
+  <% if user_signed_in? && @order_items.present? %>  
+    <h3 id='grand-total' class='font-semibold'>Total: NGN <%= number_with_precision(cart_total, precision: 2) %></h3>
 
-<%= render 'shared/place_order_button' %>
+    <%= render 'shared/place_order_button' %>
+  <% elsif session[:order_details].present?  %>
+    <h3 id='grand-total' class='font-semibold'>Total: NGN <%= number_with_precision(cart_total, precision: 2) %></h3>
+
+    <%= render 'shared/place_order_button' %>
+  <% end %>
+

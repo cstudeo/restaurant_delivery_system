@@ -1,7 +1,7 @@
 
-<div class="w-4/5 mx-auto flex flex-row justify-between flex-wrap my-10">
+<div class="w-4/5 mx-auto flex flex-row justify-around flex-wrap my-10">
   <% @food_items.each do |food_item| %>
-  <div class="w-full max-w-sm bg-white border border-gray-300 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 m-2 p-2">
+  <div class="w-full max-w-sm bg-white border border-gray-300 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 m-2 p-2 transition transform duration-700 hover:shadow-xl hover:scale-105">
     <div class="w-full">
       <%= cl_image_tag(food_item.picture.key, alt: food_item.name, class: "food-item-image") %>
     </div>
