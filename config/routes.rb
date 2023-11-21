@@ -4,10 +4,13 @@ Rails.application.routes.draw do
   # devise_for :users
   
   devise_for :users, controllers: {
-    sessions: 'users/sessions'
+    sessions: 'users/sessions',
+    registrations: 'users/registrations'
   }
 
-  resources :orders, except: [:edit]
+  resources :orders, except: [:edit] do
+    get :confirm_order, on: :member
+  end
   root 'restaurants#index'
   resources :carriers, only: [:index, :edit, :update] do
     post :update_availibilty, on: :collection

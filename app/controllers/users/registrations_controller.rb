@@ -11,7 +11,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # POST /resource
   def create
-    super
+    super do |user|
+    end
   end
 
   # GET /resource/edit
@@ -59,4 +60,30 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # def after_inactive_sign_up_path_for(resource)
   #   super(resource)
   # end
+
+  private
+
+  def after_sign_up_path_for(resource)
+    transfer_session
+    super(resource)
+  end
+
+  def transfer_session
+    order_details = session[:order_details]
+
+    if order_details
+      order_details.each do |order_detail|
+        food_item_id = order_detail["food_item_id"]
+        quantity = order_detail["quantity"]
+        restaurant_id = order_detail["restaurant_id"]
+        current_cart = Cart.find_or_create_by(user_id: current_user.id, restaurant_id: restaurant_id)
+        current_cart.order_items.create(
+          food_item_id: food_item_id,
+          quantity: quantity
+        )
+      end
+
+      session.delete(:order_details)
+    end
+  end
 end

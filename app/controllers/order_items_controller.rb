@@ -5,8 +5,12 @@ class OrderItemsController < ApplicationController
   
   def create
     if user_signed_in?
-      @order_item = @cart.order_items.find_or_initialize_by(food_item_id: order_params[:food_item_id])
+      check_same_source
+      @cart.restaurant_id = @restaurant.id
+      @cart.save
 
+
+      @order_item = @cart.order_items.find_or_initialize_by(food_item_id: order_params[:food_item_id])
       if @order_item.new_record?
         @order_item.assign_attributes(order_params)
       else
@@ -14,6 +18,7 @@ class OrderItemsController < ApplicationController
       end
       @order_item.save
     else
+      check_same_restaurant
       session[:order_details] ||= []
       new_data = {
         quantity: params[:order_item][:quantity].to_i,
@@ -36,6 +41,22 @@ class OrderItemsController < ApplicationController
       format.turbo_stream
       format.html
     end
+  end
+
+  def check_same_source
+    if @cart.restaurant_id.present?
+      if @cart.restaurant_id != @restaurant.id
+        @cart.order_items.destroy_all
+        @cart.restaurant_id = nil
+      end
+    end
+  end
+
+  def check_same_restaurant
+    if session[:order_details].present? && session[:order_details].first["restaurant_id"] != session[:restaurant_id]
+      session.delete(:order_details)      
+    end
+
   end
 
   def update

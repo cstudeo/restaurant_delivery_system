@@ -5,7 +5,7 @@ module ApplicationHelper
   end
 
 	def current_cart
-		Cart.find_or_create_by(user: current_user, restaurant: Restaurant.find_by_id(session[:restaurant_id]))
+		@cart = Cart.find_or_create_by(user_id: current_user.id)
 	end
 
 	def current_restaurant
@@ -37,12 +37,6 @@ module ApplicationHelper
 	end
 
   def eligible_carriers
-    # current_date = Date.current
-    # carriers = Carrier.is_available
-    
-    # new_carriers = carriers.map {|carrier| carrier if carrier.orders.empty? }.compact
-    # eligible_carriers = carriers.includes(:orders).left_outer_joins(:orders).where('DATE(orders.created_at) = ? OR orders.id IS NULL', current_date).group('users.id').having('COUNT(orders.id) < 10')
-
     today = Date.today
     eligible_carriers = Carrier.is_available.select do |carrier|
       carrier.orders.where('DATE(created_at) = ?', today).count < 10
