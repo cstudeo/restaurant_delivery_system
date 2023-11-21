@@ -125,6 +125,12 @@
     width: 30%;
   }
   .coupon-input {
+    width: 95% !important;
+  }
+
+  .sign-out-btn{
+    font-size: small;
+    padding: 0;
     width: 100%;
   }
 }

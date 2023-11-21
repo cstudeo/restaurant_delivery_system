@@ -4,6 +4,7 @@ class OrdersController < ApplicationController
   before_action :set_restaurant, only: [:create]
   before_action :set_customer, only: [:create]
   before_action :set_carrier, only: [:create]
+  # after_action :initialize_payment, only: [:create]
 
   def new
     @cart.coupon_applied = @cart.coupon_applied || false
@@ -24,56 +25,88 @@ class OrdersController < ApplicationController
       @cart.order_items.each do |order_item|
         order_item.update(order_id: @order.id, cart_id: nil)
       end
-      render json: {  
-        total_amount: @order.total_amount,
-        account_number: @carrier.verification_detail.account_number,
-        order_id: @order.id
-      }
+      @cart.destroy
+      initialize_payment
     else
       render json: { error: 'Unable to process the order. Carriers not available. Please try again later.' }
     end
   end
 
-  def show
-    @order = Order.find(params[:id])
-  end
+  def initialize_payment
+    secret_key = Rails.application.credentials.paystack.secret_key
+    paystack_url = URI.parse('https://api.paystack.co/transaction/initialize')
+    app_url = Rails.application.credentials.app_url
+    http = Net::HTTP.new(paystack_url.host, paystack_url.port)
+    http.use_ssl = true
+    email = @customer.email
+    total_amount = order_amount_with_extra_charges.to_f.round() * 100
+    carrier_account = @carrier.verification_detail.account_number
 
-  def update
-    @order = Order.find(params[:id])
-  
-    respond_to do |format|
-      if @order.update(status: 1)
-        OrderMailer.mail_customer(@order).deliver_later
-        OrderMailer.mail_carrier(@order).deliver_later
-  
-        format.html { redirect_to order_path(@order) }
-        format.json {
-          render json: {
-            message: 'Order status updated successfully',
-            order_id: @order.id
-          }
-        }
-      else
-        format.html {
-          flash[:alert] = 'Unable to process the order. Please try again later.'
-          redirect_to root_path
-        }
-        format.json {
-          render json: { error: 'Unable to process the order. Please try again later.' }, status: :unprocessable_entity
-        }
-      end
+    headers = {
+      'Authorization' => "Bearer #{secret_key}",
+      'Content-Type' => 'application/json'
+    }
+
+    data = {
+      'email' => 'umerb0004@gmail.com',
+      'amount' => total_amount,
+      'subaccount' => carrier_account,
+      'currency' => 'NGN',
+      'callback_url' => "#{app_url}/orders/#{@order.id}/confirm_order"
+    }
+
+    byebug
+
+    request = Net::HTTP::Post.new(paystack_url.path, headers)
+    request.body = data.to_json
+
+    response = http.request(request)
+    response = JSON.parse(response.body)
+
+    if response["status"]
+      authorization_url = response["data"]["authorization_url"]
+      reference = response["data"]["reference"]
+      redirect_to authorization_url, allow_other_host: true
     end
   end
 
-  def destroy 
-    @order = Order.find(params[:id])
-    @order.order_items.each do |order_item|
-      order_item.update(order_id: nil, cart_id: current_cart.id)
-    end
-    if @order.destroy
-      flash[:alert] = "Unable to process the payment. Please try again later."
+  def order_amount_with_extra_charges
+    total_amount = @order.total_amount.to_f
+    delivery_charges = 400
+    food_charges = (1.7 * @order.total_amount / 100 )
+    service_fee = 100
+
+    total_amount + delivery_charges + food_charges + service_fee
+  end
+
+
+  def confirm_order
+    @order = Order.find_by(id: params[:id])
+    secret_key = Rails.application.credentials.paystack.secret_key
+    transaction_reference = params[:reference]
+    url = URI.parse("https://api.paystack.co/transaction/verify/#{transaction_reference}")
+    http = Net::HTTP.new(url.host, url.port)
+    http.use_ssl = true
+
+    headers = {
+      'Authorization' => "Bearer #{secret_key}"
+    }
+
+    request = Net::HTTP::Get.new(url.path, headers)
+
+    response = http.request(request)
+    response_body = JSON.parse(response.body)
+
+    if response_body["status"]
+      @order.update(status: "paid")
+      OrderMailer.mail_customer(@order).deliver_now
+      OrderMailer.mail_carrier(@order).deliver_now
       redirect_to root_path
     end
+  end
+
+  def show
+    @order = Order.find(params[:id])
   end
 
   private
