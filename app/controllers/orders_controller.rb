@@ -55,7 +55,6 @@ class OrdersController < ApplicationController
       'callback_url' => "#{app_url}/orders/#{@order.id}/confirm_order"
     }
 
-    byebug
 
     request = Net::HTTP::Post.new(paystack_url.path, headers)
     request.body = data.to_json

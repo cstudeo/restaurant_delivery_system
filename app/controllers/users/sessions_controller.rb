@@ -16,25 +16,6 @@ class Users::SessionsController < Devise::SessionsController
         transfer_session
       end
     end
-
-    # order_details = session[:order_details]
-    # byebug
-    # if order_details
-    #   order_details.each do |order_detail|
-    #     food_item_id = order_detail["food_item_id"]
-    #     quantity = order_detail["quantity"]
-    #     restaurant_id = order_detail["restaurant_id"]
-    #     current_cart = Cart.find_or_create_by(user: current_user)
-
-    #     if current_cart.restaurant_id == restaurant_id
-    #       current_cart.order_items.create(
-    #         food_item_id: food_item_id,
-    #         quantity: quantity
-    #       )
-    #     end
-    #   end
-    #   session.delete(:order_details)
-    # end
   end
 
   # DELETE /resource/sign_out
