@@ -3,6 +3,8 @@ ActiveAdmin.register Carrier do
 
   permit_params :name, :phone_number, :is_available, :is_verified
 
+  # actions :all, except: [:new, :destroy]
+
   index do
     selectable_column
     id_column
@@ -35,14 +37,14 @@ ActiveAdmin.register Carrier do
       row :created_at
       row :is_verified
       row :account_number do |user|
-        user.verification_detail.account_number
+        user.verification_detail&.account_number
       end
 
       row :personal_picture do |user|
-        image_tag user.verification_detail.personal_picture.url, size: "200x200"
+        image_tag user.verification_detail&.personal_picture&.url, size: "200x200"
       end
       row :student_card do |user|
-        image_tag user.verification_detail.card_picture.url, size: "200x200"
+        image_tag user.verification_detail&.card_picture&.url, size: "200x200"
       end
     end
     active_admin_comments

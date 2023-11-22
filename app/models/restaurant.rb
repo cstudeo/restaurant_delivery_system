@@ -1,5 +1,7 @@
 class Restaurant < ApplicationRecord
   has_many :food_items, dependent: :destroy
+  has_many :carts, dependent: :destroy
+  has_many :orders, dependent: :destroy
 
   def self.ransackable_attributes(auth_object = nil)
     ["created_at", "id", "name", "updated_at"]
