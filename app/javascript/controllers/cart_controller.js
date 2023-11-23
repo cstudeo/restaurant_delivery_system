@@ -97,6 +97,9 @@ export default class extends Controller {
           const cartTotalElement = document.querySelector('#grand-total');
           cartTotalElement.innerText = `Total: $${data.grand_total}`;
         }
+        if (data.grand_total == 0.0) {
+          document.querySelector(".place-order-btn").remove()
+        }
       });
   }
 
