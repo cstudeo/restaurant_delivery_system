@@ -1,15 +1,15 @@
 
 <div class="w-4/5 mx-auto flex flex-row justify-around flex-wrap my-10">
   <% @food_items.each do |food_item| %>
-  <div class="w-full max-w-sm bg-white border border-gray-300 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 m-2 p-2 transition transform duration-700 hover:shadow-xl hover:scale-105">
+  <div class="food-item-card w-full max-w-sm bg-white border border-gray-300 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 m-2 p-2 transition transform duration-700 hover:shadow-xl hover:scale-105">
     <div class="w-full">
       <%= cl_image_tag(food_item.picture.key, alt: food_item.name, class: "food-item-image") %>
     </div>
       <div class="px-5 pb-5">
-        <h5 class="text-xl font-semibold tracking-tight text-gray-900 dark:text-white"><%= food_item.name%></h5>
+        <h5 class="text-lg font-semibold tracking-tight text-gray-900 dark:text-white"><%= food_item.name%></h5>
         <p><%= food_item.description %></p>
           <div class="flex items-center justify-between">
-              <span class="text-xl font-bold text-gray-900 dark:text-white"><%= food_item.price %> NGN</span>
+              <span class="text-md font-bold text-gray-900 dark:text-white"><%= food_item.price %> NGN</span>
               <%= button_to "Add To Cart", order_items_path, method: :post, params: { order_item: { food_item_id: food_item.id, quantity: 1 }}, class: "text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-800 dark:focus:ring-red-800" %>
           </div>
       </div>

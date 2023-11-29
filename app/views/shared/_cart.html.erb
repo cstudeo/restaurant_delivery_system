@@ -7,7 +7,7 @@
           <%= cl_image_tag(item.food_item.picture.key, class: "pr-2 w-30 h-20 rounded cart-item-image w-full") %>
         </div>
         <h3 class="food-title"><%= item.food_item.name%></h3>
-        <h3 id="item-total-<%=item.id%>" class='text-right food-price'>$<%= number_with_precision(item.total, precision: 1) %></h3>
+        <h3 id="item-total-<%=item.id%>" class='text-right food-price'>NGN <%= number_with_precision(item.total, precision: 1) %></h3>
         <div class="flex flex-row">
           <span data-id= <%=item.id%>, data-action= "click->cart#decrement" class="ml-auto input-number-decrement">–</span><span class="input-number" id="food-quantity-<%=item.id%>" type="text"><%= item.quantity %></span><span data-id= <%=item.id%>, data-action= "click->cart#increment" class="input-number-increment">+</span>
         </div>

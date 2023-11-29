@@ -42,7 +42,7 @@ module ApplicationHelper
       carrier.orders.where('DATE(created_at) = ?', today).count < 10
     end
 
-    eligible_carriers.order('RANDOM()').first
+    eligible_carriers.sample
   end
 
 	def cart_total

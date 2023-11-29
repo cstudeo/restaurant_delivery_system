@@ -53,7 +53,7 @@ export default class extends Controller {
           quantityElement.innerText = newQuantity;
 
           const totalElement = document.querySelector(`#item-total-${id}`);
-          totalElement.innerText = `$${(newQuantity * price).toFixed(2)}`;
+          totalElement.innerText = `NGN ${(newQuantity * price).toFixed(2)}`;
           return response.json();
         } else {
           console.error("Error:", response);
@@ -63,7 +63,7 @@ export default class extends Controller {
       .then((data) => {
         if (data) {
           const cartTotalElement = document.querySelector('#grand-total');
-          cartTotalElement.innerText = `Total: $${data.grand_total}`;
+          cartTotalElement.innerText = `Total: NGN ${data.grand_total}`;
         }
       });
   }
@@ -95,7 +95,7 @@ export default class extends Controller {
       .then((data) => {
         if (data) {
           const cartTotalElement = document.querySelector('#grand-total');
-          cartTotalElement.innerText = `Total: $${data.grand_total}`;
+          cartTotalElement.innerText = `Total: NGN ${data.grand_total}`;
         }
         if (data.grand_total == 0.0) {
           document.querySelector(".place-order-btn").remove()
@@ -150,10 +150,13 @@ export default class extends Controller {
       .then((data) => {
         if (data) {
           const cartTotalElement = document.querySelector('#grand-total');
-          cartTotalElement.innerText = `Total: $${data.grand_total}`;
+          cartTotalElement.innerText = `Total: NGN ${data.grand_total}`;
 
           const cartCountElement = document.querySelector("#cart-count");
           cartCountElement.innerText = data.cart_count;
+          if (data.grand_total == 0.0) {
+            document.querySelector(".place-order-btn").remove()
+          }
         }
       });
   }
@@ -184,10 +187,10 @@ export default class extends Controller {
           quantityElement.innerText = data.quantity;
 
           const totalElement = document.querySelector(`#item-total-${id}`);
-          totalElement.innerText = `$${data.item_total}`;
+          totalElement.innerText = `NGN ${data.item_total}`;
           
           const cartTotalElement = document.querySelector('#grand-total');
-          cartTotalElement.innerText = `Total: $${data.grand_total}`;
+          cartTotalElement.innerText = `Total: NGN ${data.grand_total}`;
         }
       });
   }  
