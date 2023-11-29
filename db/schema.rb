@@ -80,7 +80,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_20_212008) do
 
   create_table "carts", force: :cascade do |t|
     t.bigint "user_id", null: false
-    t.decimal "total_amount", precision: 7, scale: 2
+    t.integer "total_amount"
     t.integer "restaurant_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -97,12 +97,12 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_20_212008) do
     t.integer "used_by"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.decimal "amount", precision: 7, scale: 2
+    t.integer "amount"
   end
 
   create_table "food_items", force: :cascade do |t|
     t.string "name", default: "", null: false
-    t.decimal "price", precision: 7, scale: 2, null: false
+    t.integer "price", null: false
     t.bigint "restaurant_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -116,8 +116,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_20_212008) do
     t.integer "quantity"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.decimal "total", precision: 7, scale: 2
-    t.decimal "unit_price", precision: 7, scale: 2
+    t.integer "total"
+    t.integer "unit_price"
     t.bigint "cart_id"
     t.index ["cart_id"], name: "index_order_items_on_cart_id"
     t.index ["food_item_id"], name: "index_order_items_on_food_item_id"
@@ -126,7 +126,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_20_212008) do
 
   create_table "orders", force: :cascade do |t|
     t.bigint "restaurant_id", null: false
-    t.decimal "total_amount", precision: 7, scale: 2
+    t.integer "total_amount"
     t.bigint "customer_id", null: false
     t.bigint "carrier_id", null: false
     t.integer "status"
